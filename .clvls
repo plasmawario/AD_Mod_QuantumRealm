@@ -1,0 +1,26 @@
+{
+  "exp": 15197,
+  "lvl": 11,
+  "langs": {
+    "css": {
+      "exp": 1788,
+      "lvl": 6
+    },
+    "javascript": {
+      "exp": 8929,
+      "lvl": 11
+    },
+    "markdown": {
+      "exp": 29,
+      "lvl": 1
+    },
+    "plaintext": {
+      "exp": 4,
+      "lvl": 1
+    },
+    "vue": {
+      "exp": 4447,
+      "lvl": 9
+    }
+  }
+}
