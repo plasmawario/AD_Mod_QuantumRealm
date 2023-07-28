@@ -1,14 +1,14 @@
 {
-  "exp": 15197,
-  "lvl": 11,
+  "exp": 28734,
+  "lvl": 13,
   "langs": {
     "css": {
-      "exp": 1788,
+      "exp": 2066,
       "lvl": 6
     },
     "javascript": {
-      "exp": 8929,
-      "lvl": 11
+      "exp": 17379,
+      "lvl": 14
     },
     "markdown": {
       "exp": 29,
@@ -19,8 +19,8 @@
       "lvl": 1
     },
     "vue": {
-      "exp": 4447,
-      "lvl": 9
+      "exp": 9256,
+      "lvl": 11
     }
   }
 }

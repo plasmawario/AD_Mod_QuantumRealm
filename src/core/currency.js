@@ -202,6 +202,33 @@ window.DecimalCurrency = DecimalCurrency;
 */
 
 /***
+ * the number of matter the player has
+ */
+Currency.matter_quantum = new class extends DecimalCurrency {
+  get value() { return player.matter_quantum; }
+
+  set value(value) {
+    player.matter_quantum = value;
+
+  }
+
+  add(amount) {
+    super.add(amount);
+  }
+
+  get productionPerSecond() {
+    //return AntimatterDimension(1).productionPerRealSecond;
+    return DC.D0;
+  }
+
+  get startingValue() {
+    return Effects.max(
+      0,
+    ).toDecimal();
+  }
+}();
+
+/***
  * The number of 1st generation quarks the player has
  */
 Currency.quarks1 = new class extends DecimalCurrency {

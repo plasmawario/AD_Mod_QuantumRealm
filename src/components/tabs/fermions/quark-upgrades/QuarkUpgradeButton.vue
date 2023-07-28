@@ -1,55 +1,66 @@
 <script>
-import PrimaryButton from "@/components/PrimaryButton";
-import PrimaryToggleButton from "@/components/PrimaryToggleButton";
+import CostDisplay from "@/components/CostDisplay";
+import DescriptionDisplay from "@/components/DescriptionDisplay";
+import EffectDisplay from "@/components/EffectDisplay";
 
 export default {
   name: "QuarkUpgradeButton",
   components: {
-    PrimaryButton,
-    PrimaryToggleButton
+    DescriptionDisplay,
+    EffectDisplay,
+    CostDisplay
+  },
+  props: {
+    upgrade: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
-      isAutobuyerActive: false,
+      canBeBought: false,
+      isRebuyable: false,
+      isBought: false,
       isAutoUnlocked: false,
-      isAffordable: false,
-      multiplier: new Decimal(),
-      cost: new Decimal()
+      isAutobuyerOn: false,
+      showEffect: true,
     };
   },
   computed: {
-    upgrade() {
-      return FermionUpgrade.upQuarkMultiplier;
+    config() {
+      return this.upgrade.config;
     },
-    /*autobuyer() {
-      return Autobuyer.epMult;
-    },*/
     classObject() {
       return {
-        "o-quark-upgrade": true,
-        //"o-quark-upgrade--bought": this.isBought,
-        "o-quark-upgrade--available": this.isAffordable,
-        "o-quark-upgrade--unavailable": !this.isAffordable
+        "o-quark1generator-upgrade": true,
+        "o-quark1generator-upgrade--bought": this.isBought,
+        "o-quark1generator-upgrade--available": this.canBeBought,
+        "o-quark1generator-upgrade--unavailable": !this.isBought && !this.canBeBought,
+      };
+    },
+    requirementConfig() {
+      return {
+        description: this.config.requirement
       };
     },
   },
   watch: {
-    /*isAutobuyerActive(newValue) {
-      Autobuyer.epMult.isActive = newValue;
+    /*isAutobuyerOn(newValue) {
+      Autobuyer.realityUpgrade(this.upgrade.id).isActive = newValue;
     }*/
   },
   methods: {
     update() {
       const upgrade = this.upgrade;
-      this.isAutoUnlocked = this.autobuyer.isUnlocked;
-      this.isAutobuyerActive = this.autobuyer.isActive;
-      this.multiplier.copyFrom(upgrade.effectValue);
-      this.cost.copyFrom(upgrade.cost);
-      this.isAffordable = upgrade.isAffordable;
+      this.canBeBought = upgrade.canBeBought;
+      this.isRebuyable = upgrade.isRebuyable;
+      this.isBought = !upgrade.isRebuyable && upgrade.isBought;
+      this.showEffect = upgrade.config.showEffect;
+      //if (this.isRebuyable) this.isAutobuyerOn = Autobuyer.realityUpgrade(upgrade.id).isActive;
     },
-    purchaseUpgrade() {
+    /*purchaseUpgrade() {
       this.upgrade.purchase();
-    }
+    }*/
   }
 };
 </script>
@@ -58,26 +69,21 @@ export default {
   <div class="l-spoon-btn-group l-margin-top">
     <button
       :class="classObject"
-      @click="purchaseUpgrade"
+      @click.exact="upgrade.purchase()"
     >
-      sampletext {{ formatX(5) }}
-      <br>
-      Currently: {{ formatX(multiplier, 2, 0) }}
-      <br>
-      Cost: {{ quantify("Gen 1 quarks", cost, 2, 0) }}
+    <DescriptionDisplay :config="config" />
+    <EffectDisplay
+      v-if="showEffect"
+      :config="config"
+      br
+    />
+    <CostDisplay
+      v-if="!isBought"
+      :config="config"
+      br
+      name="Gen 1 quark"
+    />
     </button>
-    <!--<PrimaryButton
-      class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
-      @click="upgrade.buyMax(false)"
-    >
-      Max Eternity Point mult
-    </PrimaryButton>
-    <PrimaryToggleButton
-      v-if="isAutoUnlocked"
-      v-model="isAutobuyerActive"
-      label="Autobuy EP mult"
-      class="l--spoon-btn-group__little-spoon o-primary-btn--small-spoon"
-    />-->
   </div>
 </template>
 

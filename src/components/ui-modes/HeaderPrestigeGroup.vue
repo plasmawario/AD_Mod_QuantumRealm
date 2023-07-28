@@ -1,5 +1,5 @@
 <script>
-import HeaderCenterContainer from "./prestige-header/HeaderCenterContainer";
+import HeaderCenterContainer from "./prestige-header/HeaderCenterQuantumContainer";
 import HeaderFermionsContainer from "./prestige-header/HeaderFermionsContainer";
 import HeaderInfinityContainer from "./prestige-header/HeaderInfinityContainer";
 

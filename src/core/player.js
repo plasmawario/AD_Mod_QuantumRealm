@@ -10,19 +10,32 @@ import { GlyphTypes } from "./glyph-effects";
 // eslint-disable-next-line prefer-const
 window.player = {
   quarks: {
+    //rebuyable upgrade vals
+    rebuyables: {
+      1: 0,
+      2: 0,
+    },
+    upgradeBits: 0,
+
+    //currency vals
     quark1: DC.E1,
     quark2: DC.D0,
     quark3: DC.D0,
   },
+  matter_quantum: DC.D0,
+  totalTickQuantumBought: 0,
+  totalTickQuantumGained: 0,
+  
   quarkUpgrades: new Set(),
-  quarkUpMultiplierNum: DC.D0,
+
+  
 
   antimatter: DC.E1,
   dimensions: {
     quarks1: Array.range(0, 2).map(tier => ({
       bought: 0,
       amount: DC.D0,
-      cost: [DC.E1, DC.E3][tier],
+      cost: [DC.E1, DC.E2][tier],
     })),
     antimatter: Array.range(0, 8).map(() => ({
       bought: 0,
@@ -926,6 +939,18 @@ window.player = {
 
 export const Player = {
   defaultStart: deepmergeAll([{}, player]),
+
+  /*
+----------------------------------------------------------------------------------------------------
+  */
+
+  get tickSpeedQuantumMultDecrease() {
+    return GameCache.tickSpeedMultDecrease.value;
+  },
+
+  /*
+----------------------------------------------------------------------------------------------------
+  */
 
   get isInMatterChallenge() {
     return NormalChallenge(11).isRunning || InfinityChallenge(6).isRunning;

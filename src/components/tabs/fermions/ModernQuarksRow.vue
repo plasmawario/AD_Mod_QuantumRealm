@@ -30,6 +30,7 @@ export default {
       isAvailableForPurchase: false,
       isAutobuyerOn: false,
       requirementReached: false,
+      hasTutorial: false,
     }
   },
   computed: {
@@ -67,11 +68,15 @@ export default {
       this.bought = dimension.bought;
       this.rateOfChange.copyFrom(dimension.rateOfChange);
       this.cost.copyFrom(dimension.cost);
+
       this.isAvailableForPurchase = dimension.isAvailableForPurchase;
       if (!this.isUnlocked) {
         this.isAvailableForPurchase = dimension.requirementReached;
       }
       this.requirementReached = dimension.requirementReached;
+
+      this.hasTutorial = (tier === 1 && Tutorial.isActive(TUTORIAL_STATE.DIM1)) ||
+        (tier === 2 && Tutorial.isActive(TUTORIAL_STATE.DIM2));
       //this.isAutobuyerOn = Autobuyer.timeDimension(this.tier).isActive;
     },
     buyQuarkGenerator() {
@@ -83,6 +88,11 @@ export default {
     },
     buyMaxQuarkGenerator() {
       buyMaxQuarkGenerator(this.tier);
+    },
+    tutorialClass() {
+      return {
+        "tutorial--glow": this.isAffordable && this.hasTutorial
+      };
     }
   }
 };
@@ -105,14 +115,21 @@ export default {
       <div class="c-modern-dim-purchase-count-tooltip">
         <span v-html="tooltipContents" />
       </div>
-      <PrimaryButton
-        :enabled="isAvailableForPurchase"
-        class="o-primary-btn--buy-td o-primary-btn o-primary-btn--new o-primary-btn--buy-dim"
-        :class="{ 'l-dim-row-small-text': hasLongText }"
-        @click="buyQuarkGenerator"
-      >
-        {{ buttonContents }}
-      </PrimaryButton>
+      
+      <div :class="tutorialClass()">
+        <PrimaryButton 
+          :enabled="isAvailableForPurchase"
+          class="o-primary-btn--buy-td o-primary-btn o-primary-btn--new o-primary-btn--buy-dim"
+          :class="{ 'l-dim-row-small-text': hasLongText }"
+          @click="buyQuarkGenerator"
+        >
+          <div
+            v-if="hasTutorial"
+            class="fas fa-circle-exclamation l-notification-icon"
+          />
+          {{ buttonContents }}
+        </PrimaryButton>
+      </div>
       <PrimaryToggleButton
         v-if="areAutobuyersUnlocked"
         v-model="isAutobuyerOn"

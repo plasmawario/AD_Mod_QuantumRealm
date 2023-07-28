@@ -62,6 +62,7 @@ export * from "./tickspeed";
 
 */
 export * from "./dimensions/quark-dimension";
+export * from "./tickspeed_quantum";
 export * from "./fermions";
 /*
 

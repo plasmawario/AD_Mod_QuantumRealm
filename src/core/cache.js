@@ -97,6 +97,9 @@ export const GameCache = {
 
   quarkGeneratorCommonMultiplier: new Lazy(() => quarkGeneratorCommonMultiplier()),
 
+  tickSpeedQuantumMultDecrease: new Lazy(() => 10 - Effects.sum(
+  )),
+
   /*
 
   */

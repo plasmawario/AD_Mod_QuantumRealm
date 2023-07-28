@@ -773,39 +773,57 @@ button:focus {
 /* #endregion Fermion sidebar tab */
 
 /* #region Quark Upgrades */
-.o-quark-upgrade {
+/*.l-reality-upgrade-btn {
+  display: flex;
+  flex-direction: column;
+  width: 20.5rem;
+  height: 10rem;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  margin: 1.2rem;
+  padding: 0 0.5rem;
+}*/
+
+.o-quark1generator-upgrade {
   width: 20rem;
   height: 9rem;
   font-family: Typewriter, serif;
   font-size: 1rem;
   font-weight: bold;
   border: 0.1rem solid var(--color-quark-up);
+  /*border-width: var(--var-border-width, 0.1rem);*/
   border-radius: var(--var-border-radius, 0.4rem);
   transition-duration: 0.2s;
   cursor: pointer;
+
+  padding: 1rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 
-.o-quark-upgrade--available {
+.o-quark1generator-upgrade--available {
   color: var(--color-quark-up);
   background-color: black;
 }
 
-.o-quark-upgrade--available:hover {
+.o-quark1generator-upgrade--available:hover {
   color: var(--color-text);
   background-color: var(--color-quark-up--bg);
 }
 
-.o-quark-upgrade--unavailable {
+.o-quark1generator-upgrade--unavailable {
   color: #181818;
   background-color: #5f5f5f;
   cursor: default;
 }
 
-.o-quark-upgrade--unavailable:hover {
+.o-quark1generator-upgrade--unavailable:hover {
   background-color: #737373;
 }
 
-.o-quark-upgrade--bought {
+.o-quark1generator-upgrade--bought {
   color: black;
   background-color: var(--color-quark-up);
   border-color: black;
