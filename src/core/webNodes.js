@@ -111,7 +111,7 @@ for (const node of WebNodes.all) {
   node.initializeConnections();
 }
 
-export function checkPerkValidity() {
+export function checkQuantumWebValidity() {
   if (player.webNodes.every(id => WebNodes.find(id) !== undefined)) return;
   dev.respecPerks();
   if (Currency.strings.gte(WebNodes.all.length)) {

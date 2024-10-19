@@ -1,7 +1,7 @@
 <script>
 
 import { DataSet, Network } from "vis-network";
-import { QUANTUM_WEB_BRANCH } from "@/core/secret-formula";
+import { QUANTUM_WEB_BRANCH } from "@/core/secret-formula/fusion/web.js";
 import QuantumWebLabel from "./QuantumWebLabel";
 import StringsShop from "./StringsShop";
 
