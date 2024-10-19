@@ -1,9 +1,10 @@
 <script>
 import GenericDimensionRowText from "@/components/GenericDimensionRowText";
 import PrimaryButton from "@/components/PrimaryButton";
+import { FusionChallenge } from "../../../core/fusion-challenges";
 
 export default {
-  name: "ModernQuarks2Row",
+  name: "ModernUpQuarksRow",
   components: {
     GenericDimensionRowText,
     PrimaryButton,
@@ -30,11 +31,27 @@ export default {
       isAvailableForPurchase: false,
       isAutobuyerOn: false,
       requirementReached: false,
+      hasTutorial: false,
     }
   },
   computed: {
     name() {
-      return this.tier % 2 ? `Charm Quark Generator` : `Strange Quark Generator`;
+      let name = "";
+      switch (this.tier){
+        case 1:
+          name = "Down";
+          break;
+        case 2:
+          name = "Strange";
+          break;
+        case 3:
+          name = "Bottom";
+          break;
+      }
+      return name + ` Quark Generator`;
+    },
+    buttonContents2() {
+      return FusionChallenge(1).isRunning ? "Buy 1" : "Buy 10";
     },
     buttonContents() {
       return this.formattedQuarkCost;
@@ -43,46 +60,51 @@ export default {
       return `Purchased ${quantifyInt("time", this.bought)}`;
     },
     showRow() {
-      return this.isUnlocked || this.requirementReached;
+      return this.isUnlocked || this.requirementReached || this.amount.gt(0);
     },
     formattedQuarkCost() {
-      return `Cost: ${format(this.cost, 2)} Gen 2 Quarks`;
+      return `Cost: ${format(this.cost, 2)} Quarks`;
     },
     hasLongText() {
       return this.buttonContents.length > 15;
     },
   },
   watch: {
-    /*isAutobuyerOn(newValue) {
-      Autobuyer.timeDimension(this.tier).isActive = newValue;
-    }*/
+    isAutobuyerOn(newValue) {
+      Autobuyer.downQuarkGenerator(this.tier).isActive = newValue;
+    }
   },
   methods: {
     update() {
       const tier = this.tier;
-      const dimension = QuarkGenerator(tier);
+      const dimension = DownQuarkGenerator(tier);
       this.isUnlocked = dimension.isUnlocked;
       this.multiplier.copyFrom(dimension.multiplier);
       this.amount.copyFrom(dimension.amount);
       this.bought = dimension.bought;
       this.rateOfChange.copyFrom(dimension.rateOfChange);
       this.cost.copyFrom(dimension.cost);
+      this.isAffordable = dimension.isAffordable;
+
       this.isAvailableForPurchase = dimension.isAvailableForPurchase;
       if (!this.isUnlocked) {
         this.isAvailableForPurchase = dimension.requirementReached;
       }
       this.requirementReached = dimension.requirementReached;
-      //this.isAutobuyerOn = Autobuyer.timeDimension(this.tier).isActive;
+
+      this.hasTutorial = (tier === 1 && TutorialQuantum.isActive(TUTORIAL_QUANTUM_STATE.DOWN));
+      this.isAutobuyerOn = Autobuyer.downQuarkGenerator(this.tier).isActive;
     },
     buyQuarkGenerator() {
-      /*if (!this.isUnlocked) {
-        QuarkGenerator(this.tier).tryUnlock();
-        return;
-      }*/
-      buySingleQuarkGenerator(this.tier);
+      buySingleDownQuarkGenerator(this.tier);
     },
     buyMaxQuarkGenerator() {
-      buyMaxQuarkGenerator(this.tier);
+      buyMaxDownQuarkGenerator(this.tier);
+    },
+    tutorialClass() {
+      return {
+        "tutorial--glow": this.isAffordable && this.hasTutorial
+      };
     }
   }
 };
@@ -91,8 +113,8 @@ export default {
 <template>
   <div
     v-show="showRow"
-    class="c-dimension-row l-dimension-row-quarks2-dim l-dimension-single-row"
-    :class="{ 'c-dim-row--not-reached': !isUnlocked && !requirementReached }"
+    class="c-dimension-row l-dimension-row-down-quark-dim l-dimension-single-row"
+    :class="{ 'c-dim-row--not-reached': !isUnlocked}"
   >
     <GenericDimensionRowText
       :tier="tier"
@@ -105,13 +127,21 @@ export default {
       <div class="c-modern-dim-purchase-count-tooltip">
         <span v-html="tooltipContents" />
       </div>
-      <PrimaryButton
+      <PrimaryButton 
         :enabled="isAvailableForPurchase"
         class="o-primary-btn--buy-td o-primary-btn o-primary-btn--new o-primary-btn--buy-dim"
-        :class="{ 'l-dim-row-small-text': hasLongText }"
+        :class="{ 'l-dim-row-small-text l-modern-buy-ad-text': hasLongText }"
         @click="buyQuarkGenerator"
       >
+      <div :class="tutorialClass()">
+        <div
+          v-if="hasTutorial"
+          class="fas fa-circle-exclamation l-notification-icon"
+        />
+        {{ buttonContents2 }}
+        <br/>
         {{ buttonContents }}
+      </div>
       </PrimaryButton>
       <PrimaryToggleButton
         v-if="areAutobuyersUnlocked"

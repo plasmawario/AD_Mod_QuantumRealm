@@ -1,6 +1,6 @@
 <script>
 import AutobuyerIntervalLabel from "./AutobuyerIntervalLabel";
-import AutobuyerModeButton from "./AutobuyerModeButton";
+import AutobuyerModeButton from "./QuantumAutobuyerModeButton";
 import AutobuyerSingleToggleLabel from "./AutobuyerSingleToggleLabel";
 
 // This component contains individual autobuyers within groups of related autobuyers (eg. an individual AD autobuyer

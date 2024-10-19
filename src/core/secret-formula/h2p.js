@@ -1,6 +1,8 @@
 import { DC } from "../constants";
 
 import { credits } from "@/core/secret-formula/credits";
+import { PlayerProgress } from "../player-progress";
+import { formatMantissaWithExponent } from "../../../node_modules/@antimatter-dimensions/notations/dist/ad-notations.umd";
 
 export const h2p = {
   /**
@@ -28,7 +30,7 @@ pages here. If you ever feel lost or confused about how something in the game wo
 explanation within the related entry in here. 
 <br>
 <br>
-For now, opening the How to Play will always start you on this page. After you get your first Dimension Boost,
+For now, opening the How to Play will always start you on this page. After you get your first Generator Boost,
 opening this modal will instead place you on the How to Play entry most relevant to the game content on your currently
 visible tab and subtab, if such an entry exists.
 `,
@@ -221,7 +223,7 @@ ${PlayerProgress.realityUnlocked()
       isUnlocked: () => true,
       tags: ["effect", "stack", "combine", "add", "reduce", "multiply", "divide", "power", "dilation", "glyph"],
       tab: "options/gameplay"
-    }, {
+    }, /*{
       name: "Common Abbreviations",
       info: () => `
 Many resources within the game may appear in an abbreviated format as text in order to save space. This How to
@@ -253,7 +255,7 @@ ${Laitela.isUnlocked ? "- <b>DE</b>: Dark Energy<br>" : ""}
       tags: ["abbreviation", "shorten", "am", "ad", "ag", "ip", "nc", "ic", "id", "rg", "ep", "tt", "td", "ec", "tp",
         "dt", "tg", "rm", "ap", "bh", "im", "dm", "de"],
       tab: ""
-    }, {
+    },*/ /*{
       name: "Antimatter Dimensions",
       info: () => `
 Antimatter is a resource that is used throughout the entire game for purchasing various things as you progress. You
@@ -314,11 +316,12 @@ ${formatInt(1)} instead of ${formatInt(10)}), <b>M</b> for Max all
       isUnlocked: () => true,
       tags: ["dims", "normal", "antimatter", "ad"],
       tab: "dimensions/antimatter"
-    }, {
+    },*/ {
       name: "Tickspeed",
       info: () => `
 Production in the game happens on each "tick", which initially occurs once per second. By buying Tickspeed Upgrades,
-you can make your Antimatter Dimensions produce faster, as if multiple ticks occur in each second.
+you can make your Quark Generators ${PlayerProgress.electronsUnlocked()  ? `and Electron-type Generators` : ``}
+produce faster, as if multiple ticks occur in each second.
 <br>
 <br>
 <b>Tickspeed:</b> This states how many game ticks are occurring every second. Fractional ticks are accounted for,
@@ -326,43 +329,47 @@ boosting production as if part of a game tick has passed. Note that the actual t
 game always runs calculations at the update rate you've chosen in the Options tab.
 <br>
 <br>
-<b>Cost:</b> The cost of antimatter for multiplying ticks/sec by the displayed multiplier.
+<b>Cost:</b> The cost of quarks for multiplying ticks/sec by the displayed multiplier.
 (without any Galaxies, this is ${formatX(1.1245, 0, 3)} per purchase)
 <br>
 <br>
 <b>Buy Max:</b> This will buy the maximum amount of Tickspeed Upgrades available
-with your current amount of antimatter.
+with your current amount of quarks.
 <br>
 <br>
 <b>Hotkeys: T</b> will purchase as many Tickspeed Upgrades as possible, or <b>Shift+T</b> to buy a single upgrade.
 <b>M</b> for Max all.
 `,
-      isUnlocked: () => Tickspeed.isUnlocked,
-      tags: ["dimension", "earlygame", "time"],
-      tab: "dimensions/antimatter"
+      isUnlocked: () => Tickspeed_Quantum.isUnlocked,
+      tags: ["generator", "earlygame", "time"],
+      tab: "fermions/quarks"
     }, {
-      name: "Dimension Boosts",
+      name: "Generator Boosts",
       info: () => `
-<b>Dimension Boost:</b> This resets your antimatter and all of your Antimatter Dimensions, but unlocks another
-Antimatter Dimension for you to purchase and boosts your Dimension multipliers.
-The 1st Dimension Boost requires ${formatInt(20)} 4th Dimensions, the 2nd requires ${formatInt(20)} 5th Dimensions, etc.
-After unlocking all ${formatInt(8)} Dimensions,
-every additional boost will cost ${formatInt(15)} more 8th Dimensions than the previous Boost and will no longer
-unlock a Dimension, but will continue to increase your Dimension multipliers.
+<b>Generator Boost:</b> In Quantum Realm, you are given 2 different Generator Boosts, one
+for each respective Generator type. Both of these will reset your quarks, ${PlayerProgress.electronsUnlocked() ? ` electrons, ` : ``}
+and all of your Up-type ${PlayerProgress.electronsUnlocked() ? `, Down-type, and Electron` : ` and Down-type`} Generators, but unlocks another
+Generator for you, of the respective Boost type, to purchase and boosts your Generator multipliers.
+For example, The 1st Up Generator Boost requires ${formatInt(35)} Up Generators and unlocks Charm Generators, the 2nd requires ${formatInt(35)}
+Charm Generators and unlocks Top Generators. However, the 1st Down Generator Boost requires ${formatInt(35)} Down Generators and unlocks Strange Generators,
+and the 3nd Down Boost requires ${formatInt(35)} Strange Generators and unlocks Top Generators.
+After unlocking all either the Top or Bottom Generators,
+every additional boost of their respective type will cost ${formatInt(20)} more Generators than the previous Boost and will no longer
+unlock a Generator, but will continue to increase your Generator multipliers.
 <br>
 <br>
-You gain a ${formatX(2)} multiplier to the 1st Dimension for every Dimension Boost you have. Each higher
-Dimension will have the multiplier applied one less time as the previous, down to a minimum of ${formatInt(0)}.
-For example, with ${formatInt(3)} Boosts, the 1st Dimension will gain ${formatX(8)}, the 2nd Dimension ${formatX(4)},
-the 3rd Dimension ${formatX(2)}, and all other Dimensions are unaffected.
+You gain a ${formatX(7.5)} multiplier to the Up or Down Generator for every Up or Down Boost you have. Each higher
+Generator will have the multiplier applied one less time as the previous, down to a minimum of ${formatInt(0)}.
+For example, with ${formatInt(3)} Up Boosts, the Up Generator will gain ${formatX(22.5)}, the Charm Generator ${formatX(15)},
+the Top Dimension ${formatX(7.5)}, and all other Generators are unaffected.
 <br>
 <br>
-<b>Hotkey: D</b> will try to purchase a Dimension Boost.
+<b>Hotkey: D</b> will try to purchase a Down Generator Boost, and an Up Generator Boost.
 `,
       isUnlocked: () => true,
-      tags: ["dimboost", "reset", "earlygame"],
-      tab: "dimensions/antimatter"
-    }, {
+      tags: ["genboost", "reset", "earlygame"],
+      tab: "fermions/quarks"
+    }, /*{
       name: "Antimatter Galaxies",
       info: () => `
 Purchasing an Antimatter Galaxy will reset your game back to the point where only ${formatInt(4)} Dimensions are
@@ -390,7 +397,7 @@ increases by another ${formatPercents(0.002, 1)} per Galaxy, on top of Distant s
       isUnlocked: () => true,
       tags: ["8th", "reset", "galaxy", "earlygame"],
       tab: "dimensions/antimatter"
-    }, {
+    },*/ /*{
       name: "Dimensional Sacrifice",
       info: () => `
 <b>You unlock Dimensional Sacrifice after your fifth Dimension Boost.</b>
@@ -412,7 +419,7 @@ ${formatX(8)} then ${formatX(5)}; in both cases you will end up with a total sac
       isUnlocked: () => Sacrifice.isVisible,
       tags: ["8th", "reset", "earlygame", "gods", "earlygame"],
       tab: "dimensions/antimatter"
-    }, {
+    },*/ {
       name: "Achievements",
       info: () => `
 Each Achievement has requirements to unlock. Once unlocked, some Achievements give a reward.
@@ -431,6 +438,33 @@ Achievement will give a hint on how to attain them.
       tags: ["earlygame", "awards", "earlygame"],
       tab: "achievements"
     }, {
+      name: "Nuclear Fusion",
+      info: () => `
+Once you exceed ${formatPostBreak(Number.MAX_VALUE, 6)} quarks,
+(sometimes called "Infinity"), you will be able to do a “Nuclear Fusion”. This will reset your quarks, electrons,
+Quark and Electron-type Generators, Up and Down Generator Boosts, your Electron Upgrades, and your Tickspeed. Doing a Nuclear Fusion is
+also sometimes referred to as "Fusing", doing a "Fusion", or having "Fused".
+<br>
+<br>
+By default, you automatically can go beyond ${formatPostBreak(Number.MAX_VALUE, 6)} quarks and electrons, though you likely
+won't make it very far, as Generator and Tickspeed costs durastically increase past this point.
+<br>
+<br>
+Each Fusion completed will give Matter, which can be spent on upgrades in the new Bosons tab. Additionally,
+You will also gain one "Fusion", which is effectively the number of times you have fused.
+<br>
+<br>
+The "Buy a Gluon to increase Matter gains" upgrade can be bought multiple times,
+but each purchase requires ${formatInt(10)} times as much Matter. Gluons simple increase the amount of Matter
+that you will gain every time you perform a Fusion.
+<br>
+<br>
+<b>Hotkey: C</b> will try to perform a Fusion.
+`,
+      isUnlocked: () => PlayerProgress.matterUnlocked(),
+      tags: ["fusion", "nuclear", "upgrades", "matter", "reset", "prestige", "earlygame"],
+      tab: "bosons/gluon"
+    }, /*{
       name: "Infinity",
       info: () => `
 Once you have too much antimatter for the world to handle (${formatInt(2)}<sup>${formatInt(1024)}</sup>
@@ -459,7 +493,22 @@ You must complete the Achievement "No DLC required" to start purchasing this par
       isUnlocked: () => PlayerProgress.infinityUnlocked(),
       tags: ["crunch", "big", "upgrades", "ip", "reset", "prestige", "earlygame"],
       tab: "infinity/upgrades"
-    }, {
+    },*/ {
+      name: "Fusion Challenges",
+      info: () => `
+      Fusion Challenges are unlocked after your first Fusion; they change in-game mechanics in different ways to create more
+difficult Fusion circumstances. To complete a challenge, you must reach ${formatPostBreak(Number.MAX_VALUE, 2)}
+antimatter again.
+<br>
+<br>
+Each completed Fusion Challenge will award an autobuyer or the ability to upgrade an existing autobuyer.
+You can run them multiple times (though only the first time grants a reward),
+and they can be exited at any time via the “Exit Challenge” button.
+`,
+      isUnlocked: () => PlayerProgress.matterUnlocked(),
+      tags: ["fusion", "autobuyer", "earlygame"],
+      tab: "challenges/fusion"
+    },/*{
       name: "Normal Challenges",
       info: () => `
 Normal Challenges are unlocked after your first Infinity; they change in-game mechanics in different ways to create more
@@ -479,17 +528,17 @@ you unlock challenges.
 The rightmost column of Infinity Upgrades does not work in challenges.
 `,
       isUnlocked: () => PlayerProgress.infinityUnlocked(),
-      tags: ["infinity", "autobuyer", "earlygame"],
+      tags: ["fusion", "autobuyer", "earlygame"],
       tab: "challenges/normal"
-    }, {
+    },*/ {
       name: "Autobuyers",
       info: () => `
-Autobuyers allow you to automatically purchase dimensions, upgrades, or prestiges. All autobuyer
+Autobuyers allow you to automatically purchase generators, upgrades, or prestiges. All autobuyer
 controls are located under the "Autobuyers" subtab of the "Automation" tab, including any additional autobuyers
 unlocked later in the game.
 <br>
 <br>
-Antimatter Dimension Autobuyers and the Tickspeed Upgrade Autobuyer can be unlocked based on your total antimatter,
+Quark Generator Autobuyers and the Tickspeed Upgrade Autobuyer can be unlocked based on your total quarks,
 but most other autobuyers require upgrades to be purchased or challenges to be beaten.
 <br>
 <br>
@@ -497,16 +546,16 @@ Most Autobuyers have similar attributes:
 <br>
 <br>
 <b>Autobuyer Interval:</b> The cooldown period before the autobuyer attempts to make another purchase.
-Antimatter Dimension Autobuyers and the Tickspeed Upgrade Autobuyer require their respective challenges to be beaten
+Generator Autobuyers and the Tickspeed Upgrade Autobuyer require their respective challenges to be beaten
 before their interval can be upgraded.
 <br>
 <br>
-<b>Antimatter Dimension Autobuyer Bulk Buy:</b> Once the interval of an autobuyer reaches its minimum
+<b>Generator Autobuyer Bulk Buy:</b> Once the interval of an autobuyer reaches its minimum
 (at ${formatInt(100)} ms), all future upgrades will double the maximum amount the autobuyer can purchase per tick.
 This can be disabled.
 <br>
 <br>
-<b>Antimatter Dimension Autobuyer Buy Quantity:</b> Autobuyers for Dimensions can be set to buy a single Dimension,
+<b>Generator Autobuyer Buy Quantity:</b> Autobuyers for Generators can be set to buy a single Generator,
 or until ${formatInt(10)}. Bulk buy is disabled when the autobuyer is set to singles.
 <br>
 <br>
@@ -514,19 +563,11 @@ or until ${formatInt(10)}. Bulk buy is disabled when the autobuyer is set to sin
 or to buy the max possible once the Tickspeed Challenge (C9) has been beaten.
 <br>
 <br>
-<b>Automatic Dimension Boost Customization:</b> With the Dimension Boost autobuyer you can set the max number of
-Boosts it will attempt to buy, a minimum number of Antimatter Galaxies before Dimension Boosts are
-always auto-purchased, and (when unlocked) the ability to buy an exact number of Dimension Boosts in bulk.
-If you reach your specified Galaxy threshold, the autobuyer will ignore your max Boost limit.
+<b>Automatic Generator Boost Customization:</b> With the Generator Boost autobuyers you can set the max number of
+Boosts it will attempt to buy, and (when unlocked) the ability to buy an exact number of Generator Boosts in bulk.
 <br>
 <br>
-<b>Max Galaxies:</b> The highest amount of Galaxies the Galaxies autobuyer will buy.
-<br>
-<br>
-<b>IP on crunch:</b> Once you Break Infinity, you can set how many IP you would like to wait for before crunching.
-<br>
-<br>
-<b>Sacrifice Autobuyer:</b> This autobuyer starts with a maxed interval, potentially triggering every tick.
+<b>Matter on fusion:</b> Once maxing out the interval, you can set how much Matter you would like to wait for before fusion.
 <br>
 <br>
 <b>Dynamic Amount:</b> Upgraded prestige autobuyers have a mode that triggers a prestige when a specified threshold
@@ -548,7 +589,7 @@ toggle the associated autobuyer.
       isUnlocked: () => true,
       tags: ["infinity", "automation", "challenges", "rewards", "interval", "earlygame"],
       tab: "automation/autobuyers"
-    }, {
+    }, /*{
       name: "Break Infinity",
       info: () => `
 Once you Break Infinity, you are no longer limited to ${formatPostBreak(Number.MAX_VALUE, 2)} antimatter and can start
@@ -569,7 +610,52 @@ Tickspeed Upgrade costs as well.
       isUnlocked: () => Autobuyer.bigCrunch.hasMaxedInterval || PlayerProgress.eternityUnlocked(),
       tags: ["limit", "crunch", "upgrades", "midgame"],
       tab: "infinity/break"
+    },*/ {
+      name: "String Theories",
+      info: () => `
+<b>Unlocking String Theories:</b> After purchasing 17 of the initial fusion upgrades, you will unlock the String Theories.
+These are divided into 4 branches, each with its own set of upgrades that are bought with Strings.
+<br>
+<br>
+<b>The 4 branches:</b> Each branch is unlocked at various stages of the game, with the first branch being unlocked
+after purchasing the initial upgrade in the center. Once unlocked, the upgrade descriptions and costs are revealed.
+<br>
+<br>
+<b>Strings:</b> Strings are a new currency that is bought with Matter. These are spent on the various upgrades within
+the String Theory tab.
+<br>
+<br>
+As you progress through the String Theories tab, you will get more and more powerful upgrades that can durastically change
+the game. Additionally, every completed sub-branch off of each main branch will award you with a free Proto-galaxy
+that is always active
+`,
+      isUnlocked: () => PlayerProgress.quantumWebUnlocked(),
+      tags: ["string", "theories", "theory", "earlygame"],
+      tab: "bosons/quantumweb"
     }, {
+      name: "Electric Charge",
+      info: () => `
+<b>Unlocking Electric Charge:</b> Electric Charge is unlocked after purchasing the respective String Theory upgrade.
+You will find it under the Electrons subtab in the Fermions tab.
+<br>
+<br>
+<b>Electric Charge Production:</b> Electric Charge is, mechanically, generated by Electron Generators. This means
+that Electron Generators technically generate 2 resources now, although it will produce Electric Charge at a heavily-
+reduced production compared to Electrons. By default, this is equal to ${formatMantissaWithExponent(0.25, 2, 2)}
+of Electron production. This can be increased through future upgrades.
+<br>
+<br>
+Every Generator Boost, your Electron-type Generators are reset. However, your Electric Charge does not. You will retain
+whatever Electric Charge you had upon the reset.
+<br>
+<br>
+Electric Charge gives a multiplier applied to all Quark Generators, equal to itself and any multipliers applied to it
+from upgrades that increase its strength.
+`,
+      isUnlocked: () => WebNode.electricCharge.isBought,
+      tags: ["electric", "charge", "string", "theories", "theory", "earlygame"],
+      tab: "fermions/electrons"
+    }, /*{
       name: "Infinity Dimensions",
       info: () => `
 <b>Unlocking Infinity Dimensions:</b> Infinity Dimensions are unlocked by reaching a certain amount of antimatter.
@@ -612,7 +698,7 @@ affected by Tickspeed Upgrades.
       isUnlocked: () => Autobuyer.bigCrunch.hasMaxedInterval || PlayerProgress.eternityUnlocked(),
       tags: ["id", "power", "new", "dims", "unlock", "break", "midgame"],
       tab: "dimensions/infinity"
-    }, {
+    },*/ /*{
       name: "Infinity Challenges",
       // This one could use some work!
       info: () => `
@@ -631,7 +717,34 @@ amount of antimatter before you can attempt them.
       isUnlocked: () => Autobuyer.bigCrunch.hasMaxedInterval || PlayerProgress.eternityUnlocked(),
       tags: ["rewards", "break", "ic", "midgame"],
       tab: "challenges/infinity"
-    }, {
+    },*/ {
+      name: "Nuclear Decay",
+      info: () => `
+After purchasing the final String Theory in the Atomic Stability branch, you will unlock the ability to start a
+Nuclear Decay. This will begin a modified reset that imposes several debuffs to make your run more difficult. You may
+exit Nuclear Decay at any time, but you will not gain anything for doing so.
+<br>
+<br>
+While under Nuclear Decay, you will also no longer be able to create Matter. Instead, after reaching ${formatPostBreak(Number.MAX_VALUE, 6)}
+quarks, you will begin to passively gain W Bosons. You gain more W Bosons depending on how far you progress into this Decay.
+W Bosons will also give you a small bonus to Quark and Electron production.
+<br>
+<br>
+Should you decide to exit Nuclear Decay past the infinity point, you will have successfully completed the Decay, and be awarded
+with Z Bosons depending on your progress. However, you will also enter a new prestige layer and reset your Quark and Electron-type
+Generators, Tickspeed, Electron upgrades, Up and Down boosts, and All Fusion Upgrades. Your String Theories will remain intact.
+(may change later, i dunno yet)
+<br>
+<br>
+With your newly-acquired Z Bosons, you can spend them on powerful upgrades and buffs that are unlocked for you.
+<br>
+<br>
+<b>Hotkey: C</b> will try to perform a Fusion.
+`,
+      isUnlocked: () => PlayerProgress.decayUnlocked(),
+      tags: ["fusdecayion", "nuclear", "upgrades", "z", "reset", "prestige", "midgame"],
+      tab: "bosons/wz"
+    }, /*{
       name: "Replicanti",
       info: () => `
 Replicanti are another resource you unlock at ${format(DC.E140)} IP. Rather
@@ -665,7 +778,7 @@ from quadratic to cubic, with the ${formatX(DC.E55)} multiplier itself increasin
       isUnlocked: () => Replicanti.areUnlocked || PlayerProgress.eternityUnlocked(),
       tags: ["interval", "chance", "infinity", "galaxy", "galaxies", "midgame"],
       tab: "infinity/replicanti"
-    }, {
+    },*/ {
       name: "Eternity",
       info: () => `
 Upon reaching ${formatPostBreak(Number.MAX_VALUE, 2)} IP, you can Eternity. Eternities will reset everything before this

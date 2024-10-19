@@ -8,6 +8,15 @@ import InfinityChallengeStartModal from "@/components/modals/challenges/Infinity
 import MessageModal from "@/components/modals/MessageModal";
 import NormalChallengeStartModal from "@/components/modals/challenges/NormalChallengeStartModal";
 
+/*
+*/
+import FusionModal from "@/components/modals/prestige/FusionModal";
+import UpGenBoost from "@/components/modals/prestige/GenBoostUpModal";
+import DownGenBoost from "@/components/modals/prestige/GenBoostDownModal";
+import FusionChallengeStartModal from "@/components/modals/challenges/FusionChallengeStartModal"
+/*
+*/
+
 import AntimatterGalaxyModal from "@/components/modals/prestige/AntimatterGalaxyModal";
 import ArmageddonModal from "@/components/modals/prestige/ArmageddonModal";
 import BigCrunchModal from "@/components/modals/prestige/BigCrunchModal";
@@ -193,6 +202,14 @@ class TimeModal extends Modal {
 // If a new modal which can be shown in the same queue multiple times needs to be added
 // Additional code needs to be written to account for that
 
+Modal.fusionModal = new Modal(FusionModal, 1, GAME_EVENT.FUSION_RESET_AFTER);
+Modal.upGenBoost = new Modal(UpGenBoost, 1, GAME_EVENT.UP_BOOST_AFTER);
+Modal.downGenBoost = new Modal(DownGenBoost, 1, GAME_EVENT.DOWN_BOOST_AFTER);
+
+Modal.startFusionChallenge = new ChallengeConfirmationModal(FusionChallengeStartModal);
+
+//
+
 Modal.startEternityChallenge = new ChallengeConfirmationModal(EternityChallengeStartModal);
 Modal.startInfinityChallenge = new ChallengeConfirmationModal(InfinityChallengeStartModal);
 Modal.startNormalChallenge = new ChallengeConfirmationModal(NormalChallengeStartModal);
@@ -273,6 +290,9 @@ Modal.s12Games = new Modal(S12GamesModal);
 
 function getSaveInfo(save) {
   const resources = {
+    fusion: new Decimal(0),
+    matter: new Decimal(0),
+
     realTimePlayed: 0,
     totalAntimatter: new Decimal(0),
     infinities: new Decimal(0),

@@ -5,6 +5,7 @@ export default {
     return {
       hasTutorial: false,
       isModern: false,
+      isPastInit: false,
     };
   },
   computed: {
@@ -23,6 +24,7 @@ export default {
     update() {
       this.hasTutorial = Tutorial.emphasizeH2P();
       this.isModern = player.options.newUI;
+      this.isPastInit = player.pastInitialScreen;
     },
     showH2P() {
       Modal.h2p.show();
@@ -35,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div v-if="isPastInit">
     <div
       :class="h2pClassObject"
       :style="topMargin"

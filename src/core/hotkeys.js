@@ -33,22 +33,22 @@ export const shortcuts = [
     function: () => keyboardToggleAutobuyers(),
     visible: true
   }, {
-    name: "Buy one Tickspeed",
+    name: "Buy one Tickspeed",//-------------------------
     keys: ["shift", "t"],
     type: "bindRepeatableHotkey",
-    function: () => buyTickSpeed(),
+    function: () => buyTickSpeedQuantum(),
     visible: true
   }, {
-    name: "Buy max Tickspeed",
+    name: "Buy max Tickspeed",//-------------------------
     keys: ["t"],
     type: "bindRepeatableHotkey",
-    function: () => buyMaxTickSpeed(),
+    function: () => buyMaxTickSpeedQuantum(),
     visible: true
   }, {
-    name: "Max all",
+    name: "Max all",//-------------------------
     keys: ["m"],
     type: "bindRepeatableHotkey",
-    function: () => maxAll(),
+    function: () => maxAllQuantum(),
     visible: true
   }, {
     name: "Dimensional Sacrifice",
@@ -57,16 +57,16 @@ export const shortcuts = [
     function: () => sacrificeBtnClick(),
     visible: true
   }, {
-    name: "Dimension Boost",
+    name: "Dimension Boost",//-------------------------
     keys: ["d"],
     type: "bindRepeatableHotkey",
-    function: () => manualRequestDimensionBoost(true),
+    function: () => {manualRequestDownGenBoost(true); manualRequestUpGenBoost(true)},
     visible: true
   }, {
-    name: "Single Dimension Boost",
+    name: "Single Dimension Boost",//-------------------------
     keys: ["shift", "d"],
     type: "bindRepeatableHotkey",
-    function: () => manualRequestDimensionBoost(false),
+    function: () => {manualRequestDimensionBoost(false); manualRequestUpGenBoost(false)},
     visible: false
   }, {
     name: "Antimatter Galaxy",
@@ -81,10 +81,10 @@ export const shortcuts = [
     function: () => manualRequestGalaxyReset(false),
     visible: false
   }, {
-    name: "Big Crunch",
+    name: "Big Crunch",//-------------------------
     keys: ["c"],
     type: "bindRepeatableHotkey",
-    function: () => manualBigCrunchResetRequest(),
+    function: () => manualFusionResetRequest(),
     visible: true
   }, {
     name: "Replicanti Galaxy",

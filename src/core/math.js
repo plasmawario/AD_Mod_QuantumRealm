@@ -385,6 +385,12 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
   }
 
   /**
+   * THIS FUNCTION IS MODIFIED FROM VANILLA TO SUIT THE CODEBASE FOR OUR DIMENSIONS IN
+   * QUANTUM REALM.
+   * 
+   * Most changes are just support for expanded functionality that are required for our
+   * dimension code to work, such as handling bulk buys and buying dims in blocks.
+   * 
    * Figure out how much of this can be bought.
    * This returns the maximum new number of this thing; If you have 51 and can
    * afford to buy 10 more, this will return 61. NOTE! this assumes you only
@@ -393,9 +399,11 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
    * multiplier is small.
    * @param {number} currentPurchases amount already possessed
    * @param {Decimal} money
+   * @param {Number} buyInBlocks how many purchases at a time we will limit ourselves to
+   * @param {Number} bulk the upper limit of how many new purchases we are allowed to make
    * @returns {QuantityAndPrice|null} maximum value of bought that money can buy up to
    */
-  getMaxBought(currentPurchases, rawMoney, numberPerSet) {
+  getMaxBought(currentPurchases, rawMoney, numberPerSet, buyInBlocks = 1, bulk = Infinity) {
     // We need to divide money by the number of things we need to buy per set
     // so that we don't, for example, buy all of a set of 10 dimensions
     // when we can only afford 1.
@@ -405,6 +413,15 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
     const logBase = this._logBaseCost;
     // The 1 + is because the multiplier isn't applied to the first purchase
     let newPurchases = Math.floor(1 + (logMoney - logBase) / logMult);
+
+    //if we are only allowing us to buy up to a certain bulk amount, apply that restriction here
+    if (bulk + currentPurchases < newPurchases) newPurchases = bulk + currentPurchases;
+
+    //this extra tidbit will round the purchases to their nearest nth place
+    //dependend on buyInBlocks. It's designed to work in multiples of 10, to allow
+    //buying only 10 at a time, or 100, 10000, etc. 
+    if (buyInBlocks > 1) newPurchases = Math.floor(newPurchases / buyInBlocks) * buyInBlocks;
+    
     // We can use the linear method up to one purchase past the threshold, because the first purchase
     // past the threshold doesn't have cost scaling in it yet.
     if (newPurchases > this._purchasesBeforeScaling) {
@@ -413,6 +430,9 @@ window.ExponentialCostScaling = class ExponentialCostScaling {
         return null;
       }
       newPurchases = Math.floor(this._precalcCenter + Math.sqrt(discrim) / (2 * this._logCostScale));
+
+      //round purchases here too
+      if (buyInBlocks > 1) newPurchases = Math.floor(newPurchases / buyInBlocks) * buyInBlocks;
     }
     if (newPurchases <= currentPurchases) return null;
     // There's a narrow edge case where the linear method returns > this._purchasesBeforeScaling + 1

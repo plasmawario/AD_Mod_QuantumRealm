@@ -1,0 +1,74 @@
+<script>
+import AutobuyerBox from "./FermionAutobuyerBox";
+import AutobuyerIntervalButton from "./AutobuyerIntervalButton";
+import DimensionBulkButton from "./DimensionBulkButton";
+
+export default {
+  name: "ElectronGeneratorAutobuyerBox",
+  components: {
+    DimensionBulkButton,
+    AutobuyerBox,
+    AutobuyerIntervalButton
+  },
+  props: {
+    tier: {
+      type: Number,
+      required: true
+    }
+  },
+  data() {
+    return {
+      mode: AUTOBUYER_MODE.BUY_SINGLE
+    };
+  },
+  computed: {
+    autobuyer() {
+      return Autobuyer.electronGenerator(this.tier);
+    },
+    name() {
+      return `${ElectronGenerator(this.tier).shortDisplayName} Generator Autobuyer`;
+    },
+    modeDisplay() {
+      switch (this.mode) {
+        case AUTOBUYER_MODE.BUY_SINGLE: return "Buys singles";
+        case AUTOBUYER_MODE.BUY_MAX: return "Buys max";
+      }
+      throw "Unknown Generator Autobuyer mode";
+    }
+  },
+  methods: {
+    update() {
+      this.mode = this.autobuyer.mode;
+    },
+    toggleMode() {
+      this.autobuyer.toggleMode();
+      this.update();
+    }
+  }
+};
+</script>
+
+<template>
+  <AutobuyerBox
+    :autobuyer="autobuyer"
+    :name="name"
+    show-interval
+  >
+    <template #intervalSlot>
+      <DimensionBulkButton :autobuyer="autobuyer" />
+      <AutobuyerIntervalButton :autobuyer="autobuyer" />
+    </template>
+    <template #toggleSlot>
+      <button
+        class="o-autobuyer-btn"
+        @click="toggleMode"
+      >
+        {{ modeDisplay }}
+      </button>
+    </template>
+  </AutobuyerBox>
+</template>
+
+<style scoped>
+
+</style>

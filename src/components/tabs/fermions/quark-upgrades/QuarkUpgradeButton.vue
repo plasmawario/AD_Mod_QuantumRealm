@@ -23,7 +23,9 @@ export default {
       isBought: false,
       isAutoUnlocked: false,
       isAutobuyerOn: false,
+      name: "",
       showEffect: true,
+      showName: true,
     };
   },
   computed: {
@@ -55,7 +57,9 @@ export default {
       this.canBeBought = upgrade.canBeBought;
       this.isRebuyable = upgrade.isRebuyable;
       this.isBought = !upgrade.isRebuyable && upgrade.isBought;
+      this.name = upgrade.config.name;
       this.showEffect = upgrade.config.showEffect;
+      this.showName = upgrade.config.showName;
       //if (this.isRebuyable) this.isAutobuyerOn = Autobuyer.realityUpgrade(upgrade.id).isActive;
     },
     /*purchaseUpgrade() {
@@ -67,8 +71,15 @@ export default {
 
 <template>
   <div class="l-spoon-btn-group l-margin-top">
+    <p
+      v-if="showName"
+      class="l-upgrade-name"
+    >
+      {{ config.name }}
+    </p>
     <button
       :class="classObject"
+      class="l-quantum-upgrade-btn c-quark-upgrade-btn"
       @click.exact="upgrade.purchase()"
     >
     <DescriptionDisplay :config="config" />
@@ -81,7 +92,7 @@ export default {
       v-if="!isBought"
       :config="config"
       br
-      name="Gen 1 quark"
+      name="Quark"
     />
     </button>
   </div>
@@ -90,5 +101,9 @@ export default {
 <style scoped>
 .l-margin-top {
   margin-top: 0.55rem;
+}
+
+.l-upgrade-name {
+  text-align: left;
 }
 </style>

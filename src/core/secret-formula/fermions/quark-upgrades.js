@@ -17,12 +17,14 @@ export const quarkUpgrades = [
     id: 1,
     rebuyable: true,
     initialCost: DC.D2E4,
+    showName: true,
     showEffect: false,
     costMult: 25,
-    textTemplate: "Increase the multiplier of your Up Quark Generators by {value}",
-    effectVal: 5,
+    buyCap: 75,
+    textTemplate: "Give a {value} multiplier to your Up Quark Generators",
+    effectVal: 2.5,
     effects: {
-      QuarkGeneratorMulti: () => 5,
+      QuarkGeneratorMulti: () => 2.5,
     }
   }),
   rebuyable({
@@ -30,12 +32,14 @@ export const quarkUpgrades = [
     id: 2,
     rebuyable: true,
     initialCost: DC.D2E4,
+    showName: true,
     showEffect: false,
     costMult: 25,
-    textTemplate: "Increase the multiplier of your Down Quark Generators by {value}",
-    effectVal: 5,
+    buyCap: 75,
+    textTemplate: "Give a {value} multiplier to your Down Quark Generators",
+    effectVal: 2.5,
     effects: {
-      QuarkGeneratorMulti: () => 5,
+      QuarkGeneratorMulti: () => 2.5,
     }
   }),
   /*{

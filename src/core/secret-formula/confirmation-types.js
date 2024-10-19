@@ -1,4 +1,21 @@
+import { PlayerProgress } from "../player-progress";
+
 export const confirmationTypes = [
+  {
+    name: "Up Generator Boosts",
+    option: "upGenBoost",
+    isUnlocked: () => PlayerProgress.matterUnlocked() || player.upBoosts > 0,
+  },
+  {
+    name: "Down Generator Boosts",
+    option: "downGenBoost",
+    isUnlocked: () => PlayerProgress.matterUnlocked() || player.downBoosts > 0,
+  },
+  {
+    name: "Nuclear Fusion",
+    option: "fusion",
+    isUnlocked: () => PlayerProgress.matterUnlocked(),
+  },
   {
     name: "Dimension Boost",
     option: "dimensionBoost",

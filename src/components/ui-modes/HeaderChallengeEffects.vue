@@ -15,6 +15,10 @@ export default {
       laitelaEntropy: "",
       waitingforHint: false,
       enslavedTimer: "",
+
+      //fusion challenges
+      showFc2Text: false,
+      production: 1,
     };
   },
   computed: {
@@ -51,6 +55,10 @@ export default {
       const rawMsUntilHints = 5 * 3600 * 1000 - player.celestials.enslaved.hintUnlockProgress;
       this.enslavedTimer = TimeSpan.fromMilliseconds(rawMsUntilHints / (Enslaved.isRunning ? 1 : 0.4))
         .toStringShort();
+
+      //fusion challenges
+      this.showFc2Text = Player.fusionChallenge && Player.fusionChallenge._config.id === 2;
+      this.production = Currency.fc2_production.value;
     },
     updateChallengePower() {
       const isC2Running = NormalChallenge(2).isRunning;
@@ -92,6 +100,9 @@ export default {
     </div>
     <div v-if="isChallengePowerVisible">
       {{ challengePower }}
+    </div>
+    <div v-if="showFc2Text">
+      Current Production: {{ formatPercents(production, 2, 2) }}
     </div>
   </div>
 </template>

@@ -1,26 +1,46 @@
 {
-  "exp": 28734,
-  "lvl": 13,
+  "exp": 78023,
+  "lvl": 19,
   "langs": {
     "css": {
-      "exp": 2066,
-      "lvl": 6
+      "exp": 6759,
+      "lvl": 10
+    },
+    "html": {
+      "exp": 0,
+      "lvl": 1
     },
     "javascript": {
-      "exp": 17379,
-      "lvl": 14
+      "exp": 51005,
+      "lvl": 21
+    },
+    "json": {
+      "exp": 0,
+      "lvl": 1
+    },
+    "less": {
+      "exp": 0,
+      "lvl": 1
     },
     "markdown": {
       "exp": 29,
       "lvl": 1
     },
     "plaintext": {
-      "exp": 4,
+      "exp": 14,
+      "lvl": 1
+    },
+    "scss": {
+      "exp": 0,
       "lvl": 1
     },
     "vue": {
-      "exp": 9256,
-      "lvl": 11
+      "exp": 18339,
+      "lvl": 14
+    },
+    "xml": {
+      "exp": 1877,
+      "lvl": 6
     }
   }
 }

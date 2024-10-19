@@ -44,7 +44,7 @@ export default {
       this.tickspeed.copyFrom(Tickspeed_Quantum.perSecond);
       this.gameSpeedMult = getGameSpeedupForDisplay();
       this.galaxyCount = player.galaxies;
-      this.hasTutorial = Tutorial.isActive(TUTORIAL_STATE.TICKSPEED);
+      this.hasTutorial = TutorialQuantum.isActive(TUTORIAL_STATE.TICKSPEED);
     },
     buttonClass() {
       return {

@@ -190,7 +190,7 @@ export default {
   <div class="l-replicanti-tab">
     <br>
     <PrimaryButton
-      v-if="!isUnlocked"
+      v-if="isUnlocked"
       :enabled="isUnlockAffordable"
       class="o-primary-btn--replicanti-unlock"
       onclick="Replicanti.unlock();"

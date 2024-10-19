@@ -275,8 +275,102 @@ body.t-s12 {
 --------------------------------------------------------------------------------------------------
 */
 
+.o-tab-btn--init::after{
+  border-left-color: #ffffff;
+}
+.o-tab-btn--init .o-subtab__tooltip {
+  color: #ffffff;
+  background: var(--color-prestige--accent);
+  border-color: #ffffff;
+}
+.o-tab-btn--init .o-subtab__tooltip::after {
+  border-top-color: #ffffff;
+}
+
 .o-tab-btn--fermions::after{
   border-left-color: var(--color-fermions);
+}
+.o-tab-btn--fermions .o-subtab__tooltip {
+  color: var(--color-fermions);
+  background: var(--color-prestige--accent);
+  border-color: var(--color-fermions);
+}
+.o-tab-btn--fermions .o-subtab__tooltip::after {
+  border-top-color: var(--color-fermions);
+}
+
+.o-tab-btn--bosons::after{
+  border-left-color: var(--color-bosons);
+}
+.o-tab-btn--bosons .o-subtab__tooltip {
+  color: var(--color-bosons);
+  background: var(--color-prestige--accent);
+  border-color: var(--color-bosons);
+}
+.o-tab-btn--bosons .o-subtab__tooltip::after {
+  border-top-color: var(--color-bosons);
+}
+
+.o-tab-btn--exotic::after{
+  border-left-color: var(--color-exotic);
+}
+.o-tab-btn--exotic .o-subtab__tooltip {
+  color: var(--color-exotic);
+  background: var(--color-prestige--accent);
+  border-color: var(--color-exotic);
+}
+.o-tab-btn--exotic .o-subtab__tooltip::after {
+  border-top-color: var(--color-exotic);
+}
+
+.o-tab-btn--mechanisms::after{
+  border-left-color: var(--color-mechanisms);
+}
+.o-tab-btn--mechanisms .o-subtab__tooltip {
+  color: var(--color-mechanisms);
+  background: var(--color-prestige--accent);
+  border-color: var(--color-mechanisms);
+}
+.o-tab-btn--mechanisms .o-subtab__tooltip::after {
+  border-top-color: var(--color-mechanisms);
+}
+
+/* custom icon color corrections with respect to their tabs (base image must have red and hue of 0) */
+.o-tab-btn--subtab .o-tab-btn--graviton {
+  font-weight: normal;
+  transform: scale(1.25, 1.25);
+  filter: hue-rotate(218deg) saturate(36%) brightness(142%);  /*magic values for filtering with boson colors*/
+  transition-duration: 0.15s;
+}
+.o-tab-btn--subtab .o-tab-btn--graviton:hover {
+  filter: hue-rotate(218deg) saturate(36%) brightness(0%);
+  transition-duration: 0.15s;
+}
+
+.o-tab-btn--subtab .o-tab-btn--string {
+  font-weight: normal;
+  transform: scale(0.8, 0.8);
+  filter: hue-rotate(218deg) saturate(36%) brightness(142%);  /*magic values for filtering with boson colors*/
+  transition-duration: 0.15s;
+}
+.o-tab-btn--subtab .o-tab-btn--string:hover {
+  filter: hue-rotate(218deg) saturate(36%) brightness(0%);
+  transition-duration: 0.15s;
+}
+
+.o-tab-btn--subtab .o-tab-btn--tachyon {
+  font-weight: normal;
+  transform: scale(1.25, 1.25);
+  filter: hue-rotate(86deg) saturate(78%) brightness(254%);  /*magic values for filtering with tachyon colors*/
+  transition-duration: 0.15s;
+}
+.o-tab-btn--subtab .o-tab-btn--tachyon:hover {
+  filter: hue-rotate(86deg) saturate(78%) brightness(0%);
+  transition-duration: 0.15s;
+}
+
+.o-sidebar-currency--matter {
+  color: var(--color-accent);
 }
 
 
@@ -445,6 +539,64 @@ body.t-s12 {
 .l-dimensions-container {
   padding: 0.5rem 5rem 0.5rem 9rem; /* TOP RIGHT BOTTOM LEFT */
 }
+
+/*
+-----------------------------------------------------------------------
+*/
+
+.o-primary-btn--up-boost-gen {
+  overflow: hidden;
+  grid-column: 1 / 11;
+  width: 30rem;
+  height: 7rem;
+  position: relative;
+  font-family: Typewriter, serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-text);
+  background-color: var(--color-base);
+  border: 0.35rem solid var(--color-quark-charm--bg);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.o-primary-btn--down-boost-gen {
+  overflow: hidden;
+  grid-column: 1 / 11;
+  width: 30rem;
+  height: 7rem;
+  position: relative;
+  font-family: Typewriter, serif;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--color-text);
+  background-color: var(--color-base);
+  border: 0.35rem solid var(--color-quark-strange--bg);
+  border-radius: var(--var-border-radius, 0.5rem);
+  margin: 0.5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.o-primary-btn--up-boost-gen:hover, .o-primary-btn--down-boost-gen:hover {
+  color: var(--color-text-inverted);
+  background-color: var(--color-good);
+}
+
+.o-primary-btn--generator-reset {
+  display: flex;
+  width: 30rem;
+  height: 7rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+/*
+-----------------------------------------------------------------------
+*/
 
 .o-primary-btn--new {
   overflow: hidden;
@@ -640,6 +792,33 @@ body.t-s12 {
   border-color: var(--color-bad);
 }
 
+/*
+-------------------------------------------------------------------------
+*/
+.o-primary-btn--up-gen-disabled {
+  background: #752626;
+  border-color: var(--color-quark-up--bg);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-primary-btn--up-gen-disabled:hover {
+  background-color: var(--color-quark-up--bg);
+}
+
+.o-primary-btn--down-gen-disabled {
+  background: #752626;
+  border-color: var(--color-quark-down--bg);
+  border-radius: var(--var-border-radius, 0.5rem);
+}
+
+.o-primary-btn--down-gen-disabled:hover {
+  background-color: var(--color-quark-down--bg);
+}
+
+/*
+-------------------------------------------------------------------------
+*/
+
 .o-primary-btn--subtab-option {
   border-width: 0.1rem;
 }
@@ -787,6 +966,44 @@ body.t-s12 {
 /*
 Quark generator row background colors
 */
+.l-dimension-row-up-quark-dim:nth-child(1) {
+  background-color: var(--color-quark-up--bg);
+}
+.l-dimension-row-up-quark-dim:nth-child(2) {
+  background-color: var(--color-quark-charm--bg);
+}
+.l-dimension-row-up-quark-dim:nth-child(3) {
+  background-color: var(--color-quark-top--bg);
+}
+.l-dimension-row-down-quark-dim:nth-child(1) {
+  background-color: var(--color-quark-down--bg);
+}
+.l-dimension-row-down-quark-dim:nth-child(2) {
+  background-color: var(--color-quark-strange--bg);
+}
+.l-dimension-row-down-quark-dim:nth-child(3) {
+  background-color: var(--color-quark-bottom--bg);
+}
+
+.l-dimension-row-electron-dim:nth-child(1) {
+  background-color: var(--color-electron--bg);
+}
+.l-dimension-row-electron-dim:nth-child(2) {
+  background-color: var(--color-muon--bg);
+}
+.l-dimension-row-electron-dim:nth-child(3) {
+  background-color: var(--color-tau--bg);
+}
+.l-dimension-row-electron-neutrino-dim:nth-child(1) {
+  background-color: var(--color-e-neutrino--bg);
+}
+.l-dimension-row-electron-neutrino-dim:nth-child(2) {
+  background-color: var(--color-m-neutrino--bg);
+}
+.l-dimension-row-electron-neutrino-dim:nth-child(3) {
+  background-color: var(--color-t-neutrino--bg);
+}
+
 .l-dimension-row-quarks1-dim:nth-child(odd) {
   background-color: var(--color-quark-up--bg);
 }
@@ -807,16 +1024,29 @@ Quark generator row background colors
 }
 
 /*
-Quark currency display colors
+Gen boost style
+*/
+.genboost-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 14rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+
+/*other styles are found near at "o-primary-btn--up-boost-gen" and "o-primary-btn--up-gen-disabled"*/
+
+/*
+Fermion currency display colors
 */
 .c-game-header__quark1-amount {
   color: var(--color-quark-up);
 }
-.c-game-header__quark2-amount {
-  color: var(--color-quark-charm);
-}
-.c-game-header__quark3-amount {
-  color: var(--color-quark-top);
+
+.c-game-header__electrons-amount {
+  color: var(--color-electron);
 }
 
 /*
@@ -833,6 +1063,19 @@ color of energy for the game header
 .t-normal .c-game-header__energy,
 .t-s12 .c-game-header__energy {
   color: var(--color-energy);
+}
+
+/*
+color of the nuclear decay tab
+*/
+.c-decay-tab__z,
+.c-decay-tab__nuclear-power {
+  color: var(--color-decay-z);
+}
+
+.t-normal .c-game-header__w-boson,
+.t-s12 .c-game-header__w-boson {
+  color: var(--color-decay-w);
 }
 
 /*

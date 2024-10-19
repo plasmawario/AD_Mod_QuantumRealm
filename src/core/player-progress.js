@@ -1,7 +1,33 @@
+import QuantumAchievement from "../components/tabs/quantum-achievements/QuantumAchievement.vue";
+
 export class PlayerProgress {
   constructor(player) {
     this._player = player;
   }
+
+  /*
+
+  */
+
+  get isElectronUnlocked() {
+    return ElectronGenerator(1).isUnlocked;
+  }
+ 
+  get isMatterUnlocked() {
+    return this._player.timesNuclearFused.gt(0);
+  }
+
+  get isWebUnlocked() {
+    return this._player.nuclearFusion.upgradeBbits >= 1;
+  }
+
+  get isDecayUnlocked() {
+    return this._player.webNodes.has(106);
+  }
+
+  /*
+
+  */
 
   get isInfinityUnlocked() {
     // Infinity count data is stored in either player.infinitied or player.infinities based on if the save is before
@@ -31,6 +57,30 @@ export class PlayerProgress {
   static of(player) {
     return new PlayerProgress(player);
   }
+
+  /*
+
+  */
+
+  static electronsUnlocked() {
+    return PlayerProgress.current.isElectronUnlocked;
+  }
+
+  static matterUnlocked() {
+    return PlayerProgress.current.isMatterUnlocked;
+  }
+
+  static quantumWebUnlocked() {
+    return PlayerProgress.current.isWebUnlocked;
+  }
+
+  static decayUnlocked() {
+    return PlayerProgress.current.isDecayUnlocked;
+  }
+
+  /*
+
+  */
 
   static infinityUnlocked() {
     return PlayerProgress.current.isInfinityUnlocked;

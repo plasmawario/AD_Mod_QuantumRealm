@@ -55,6 +55,15 @@ window.GAME_EVENT = {
   REPLICANTI_TICK_AFTER: "REPLICANTI_TICK_AFTER",
 
   // Resets
+  //--------------------------------------------------------------------
+  FUSION_RESET_BEFORE: "FUSION_RESET_BEFORE",
+  FUSION_RESET_AFTER: "FUSION_RESET_AFTER",
+  UP_BOOST_BEFORE: "UP_BOOST_BEFORE",
+  UP_BOOST_AFTER: "UP_BOOST_AFTER",
+  DOWN_BOOST_BEFORE: "DOWN_BOOST_BEFORE",
+  DOWN_BOOST_AFTER: "DOWN_BOOST_AFTER",
+  //--------------------------------------------------------------------
+
   DIMBOOST_BEFORE: "DIMBOOST_BEFORE",
   DIMBOOST_AFTER: "DIMBOOST_AFTER",
   GALAXY_RESET_BEFORE: "GALAXY_RESET_BEFORE",
@@ -84,6 +93,11 @@ window.GAME_EVENT = {
   FIX_INFINITY: "FIX_INFINITY",
 
   // Other
+  //--------------------------------------------------------------------
+  FUSION_CHALLENGE_COMPLETED: "FUSION_CHALLENGE_COMPLETED",
+  WEB_NODE_BOUGHT: "WEB_NODE_BOUGHT",
+  //--------------------------------------------------------------------
+
   INFINITY_DIMENSION_UNLOCKED: "INFINITY_DIMENSION_UNLOCKED",
   INFINITY_CHALLENGE_COMPLETED: "INFINITY_CHALLENGE_COMPLETED",
   INFINITY_UPGRADE_BOUGHT: "INFINITY_UPGRADE_BOUGHT",

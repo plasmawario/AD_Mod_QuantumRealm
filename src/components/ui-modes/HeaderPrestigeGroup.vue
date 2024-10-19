@@ -1,23 +1,33 @@
 <script>
-import HeaderCenterContainer from "./prestige-header/HeaderCenterQuantumContainer";
-import HeaderFermionsContainer from "./prestige-header/HeaderFermionsContainer";
-import HeaderInfinityContainer from "./prestige-header/HeaderInfinityContainer";
+import HeaderCenterQuantumContainer from "./prestige-header/HeaderCenterQuantumContainer";
+import HeaderQuarksContainer from "./prestige-header/HeaderQuarksContainer";
+import HeaderElectronContainer from "./prestige-header/HeaderElectronsContainer";
 
 export default {
   name: "HeaderPrestigeGroup",
   components: {
-    HeaderCenterContainer,
-    HeaderFermionsContainer,
-    HeaderInfinityContainer,
+    HeaderCenterQuantumContainer,
+    HeaderQuarksContainer,
+    HeaderElectronContainer,
+  },
+  data() {
+    return {
+      shouldDisplay: true,
+    };
+  },
+  methods: {
+    update() {
+      if (!this.shouldDisplay) return;
+    },
   },
 };
 </script>
 
 <template>
   <div class="c-prestige-info-blocks">
-    <HeaderFermionsContainer class="l-game-header__eternity" />
-    <HeaderCenterContainer class="l-game-header__center" />
-    <HeaderInfinityContainer class="l-game-header__infinity" />
+    <HeaderQuarksContainer class="l-game-header__eternity" />
+    <HeaderCenterQuantumContainer class="l-game-header__center" />
+    <HeaderElectronContainer class="l-game-header__infinity" />
   </div>
 </template>
 

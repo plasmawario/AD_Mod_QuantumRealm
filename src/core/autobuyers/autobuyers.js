@@ -1,3 +1,11 @@
+import { UpQuarkGeneratorAutobuyerState } from "./up-quark-generators-autobuyer";
+import { DownQuarkGeneratorAutobuyerState } from "./down-quark-generators-autobuyer";
+import { ElectronGeneratorAutobuyerState } from "./electron-generators-autobuyer";
+import { QuantumTickspeedAutobuyerState } from "./quantum-tickspeed-autobuyer";
+import { UpBoostAutobuyerState } from "./upboost-autobuyer";
+import { DownBoostAutobuyerState } from "./downboost-autobuyer";
+import { FusionAutobuyerState } from "./fusion-autobuyer";
+
 import { AnnihilationAutobuyerState } from "./annihilation-autobuyer";
 import { AntimatterDimensionAutobuyerState } from "./antimatter-dimension-autobuyer";
 import { BigCrunchAutobuyerState } from "./big-crunch-autobuyer";
@@ -22,6 +30,14 @@ import { TimeDimensionAutobuyerState } from "./time-dimension-autobuyer";
 import { TimeTheoremAutobuyerState } from "./time-theorem-autobuyer";
 
 export const Autobuyer = {
+  upQuarkGenerator: UpQuarkGeneratorAutobuyerState.createAccessor(),
+  downQuarkGenerator: DownQuarkGeneratorAutobuyerState.createAccessor(),
+  electronGenerator: ElectronGeneratorAutobuyerState.createAccessor(),
+  tickspeedQuantum: new QuantumTickspeedAutobuyerState(),
+  upboost: new UpBoostAutobuyerState(),
+  downboost: new DownBoostAutobuyerState(),
+  fusion: new FusionAutobuyerState(),
+
   annihilation: new AnnihilationAutobuyerState(),
   antimatterDimension: AntimatterDimensionAutobuyerState.createAccessor(),
   bigCrunch: new BigCrunchAutobuyerState(),
@@ -48,6 +64,21 @@ export const Autobuyer = {
 };
 
 export const Autobuyers = (function() {
+  const upQuarkGenerators = Autobuyer.upQuarkGenerator.zeroIndexed;
+  const downQuarkGenerators = Autobuyer.downQuarkGenerator.zeroIndexed;
+  const electronGenerators = Autobuyer.electronGenerator.zeroIndexed;
+  const upBoost = Autobuyer.upboost;
+  const downBoost = Autobuyer.downboost;
+
+  const generators = [upQuarkGenerators, downQuarkGenerators, electronGenerators];
+  const quantumBoosts = [upBoost, downBoost];
+
+  const prestigeQuantum = [
+    Autobuyer.fusion,
+  ];
+
+
+
   const antimatterDimensions = Autobuyer.antimatterDimension.zeroIndexed;
   const infinityDimensions = Autobuyer.infinityDimension.zeroIndexed;
   const timeDimensions = Autobuyer.timeDimension.zeroIndexed;
@@ -85,7 +116,10 @@ export const Autobuyers = (function() {
     Autobuyer.realityUpgrade.zeroIndexed,
     Autobuyer.imaginaryUpgrade.zeroIndexed,
   ];
-  const all = dimensions.concat(prestige, singleComplex, arrays);
+
+  const quantum = generators.concat(Autobuyer.tickspeedQuantum, quantumBoosts, prestigeQuantum);
+
+  const all = dimensions.concat(prestige, singleComplex, arrays, quantum);
   const multiple = [
     Autobuyer.antimatterDimension,
     Autobuyer.infinityDimension,
@@ -97,6 +131,12 @@ export const Autobuyers = (function() {
     Autobuyer.imaginaryUpgrade,
   ];
 
+  const multipleQuantum = [
+    Autobuyer.upQuarkGenerator,
+    Autobuyer.downQuarkGenerator,
+    Autobuyer.electronGenerator,
+  ];
+
   return {
     all: all.flat(),
     display: [multiple, single],
@@ -105,6 +145,13 @@ export const Autobuyers = (function() {
       Autobuyer.dimboost,
       Autobuyer.galaxy,
       Autobuyer.bigCrunch,
+    ),
+
+    displayQuantum: multipleQuantum,
+    upgradableQuantum: generators.concat(
+      Autobuyer.tickspeedQuantum,
+      Autobuyer.upBoost,
+      Autobuyer.downBoost,
     ),
 
     get unlocked() {
@@ -150,6 +197,11 @@ export const Autobuyers = (function() {
     }
   };
 }());
+
+EventHub.logic.on(GAME_EVENT.UP_BOOST_AFTER, () => Autobuyers.resetTick(PRESTIGE_QUANTUM_EVENT.UPBOOST));
+EventHub.logic.on(GAME_EVENT.DOWN_BOOST_AFTER, () => Autobuyers.resetTick(PRESTIGE_QUANTUM_EVENT.DOWNBOOST));
+EventHub.logic.on(GAME_EVENT.FUSION_RESET_AFTER, () => Autobuyers.resetTick(PRESTIGE_QUANTUM_EVENT.FUSION));
+
 
 EventHub.logic.on(GAME_EVENT.ETERNITY_RESET_AFTER, () => Autobuyers.reset());
 EventHub.logic.on(GAME_EVENT.REALITY_RESET_AFTER, () => Autobuyers.reset());

@@ -1,7 +1,16 @@
 // Temporarily aggregate tab components here until GameUI is migrated to SFC
 import QuarksTab from "./fermions/QuarksTab";
-import Leptons from "./fermions/LeptonsTab";
-import Neutrinos from "./fermions/NeutrinosTab";
+import ElectronsTab from "./fermions/ElectronsTab";
+import NeutrinosTab from "./fermions/NeutrinosTab";
+import GluonsTab from "./bosons/GluonsTab";
+import FusionTab from "./bosons/FusionTab";
+import DecayTab from "./decay/NuclearDecayTab";
+
+import QuantumAchievementsTab from "./quantum-achievements/QuantumAchievementsTab";
+import QuantumAutobuyersTab from "./autobuyers/QuantumAutobuyersTab";
+
+import FusionChallengesTab from "./fusion-challenges/FusionChallengesTab";
+import QuantumWebTab from "./quantum-web/QuantumWebTab";
 
 import AlchemyTab from "./alchemy/AlchemyTab";
 import AntimatterDimensionsTab from "./antimatter-dimensions/AntimatterDimensionsTab";
@@ -48,8 +57,17 @@ import VTab from "./celestial-v/VTab";
 
 const TabComponents = {
   QuarksTab,
-  Leptons,
-  Neutrinos,
+  ElectronsTab,
+  NeutrinosTab,
+  GluonsTab,
+  FusionTab,
+  DecayTab,
+  
+  QuantumAchievementsTab,
+  QuantumAutobuyersTab,
+
+  FusionChallengesTab,
+  QuantumWebTab,
 
   AntimatterDimensionsTab,
   InfinityDimensionsTab,

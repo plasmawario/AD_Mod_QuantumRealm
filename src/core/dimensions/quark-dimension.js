@@ -211,7 +211,7 @@ class QuarkGeneratorState extends DimensionState {
     switch (tier){
       case 1:
       case 2:
-        mult = mult.times(Decimal.pow(FermionUpgrade(tier).config.effects.QuarkGeneratorMulti(), FermionUpgrade(tier).boughtAmount)).clampMin(1);
+        //mult = mult.times(Decimal.pow(FermionUpgrade(tier).config.effects.QuarkGeneratorMulti(), FermionUpgrade(tier).boughtAmount)).clampMin(1);
         break;
     }    
 
@@ -318,7 +318,7 @@ export const QuarkGenerator = QuarkGeneratorState.createAccessor();
 
 export const QuarkGenerators = {
   /**
-   * @type {TimeDimensionState[]}
+   * @type {QuarkGeneratorState[]}
    */
   all: QuarkGenerator.index.compact(),
 
@@ -342,6 +342,7 @@ export const QuarkGenerators = {
     //defines which generator produces currency
     QuarkGenerator(1).produceCurrency(Currency.quarks1, diff);
     QuarkGenerator(2).produceCurrency(Currency.quarks1, diff);
+    //QuarkGenerator(2).ProduceDimensions(QuarkGenerator(1), diff);
   },
 };
 

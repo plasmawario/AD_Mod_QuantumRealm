@@ -1,4 +1,39 @@
+import { PlayerProgress } from "../player-progress";
+
 export const awayProgressTypes = [
+  {
+    name: "quarks",
+    isUnlocked: () => true,
+  },
+  {
+    name: "electrons",
+    isUnlocked: () => true,
+  },
+  {
+    name: "matter",
+    isUnlocked: () => PlayerProgress.matterUnlocked(),
+  },
+  {
+    name: "fusions",
+    isUnlocked: () => PlayerProgress.matterUnlocked(),
+  },
+  {
+    name: "gluons",
+    isUnlocked: () => PlayerProgress.matterUnlocked(),
+  },
+  {
+    name: "strings",
+    isUnlocked: () => PlayerProgress.quantumWebUnlocked(),
+  },
+  {
+    name: "Z Bosons",
+    isUnlocked: () => PlayerProgress.decayUnlocked(),
+  },
+  {
+    name: "W Bosons",
+    isUnlocked: () => PlayerProgress.decayUnlocked(),
+  },
+
   {
     name: "antimatter",
     isUnlocked: () => true,

@@ -8,6 +8,8 @@ import NewsTicker from "../NewsTicker";
 
 import GameSpeedDisplay from "@/components/GameSpeedDisplay";
 
+import Init from "@/components/tabs/initial-view";
+
 
 export default {
   name: "ModernUi",
@@ -19,12 +21,15 @@ export default {
     HeaderBlackHole,
     HeaderPrestigeGroup,
     GameSpeedDisplay,
+    Init,
   },
   data() {
     return {
       bigCrunch: false,
       hasReality: false,
       newGameKey: "",
+
+      isPastInit: false,
     };
   },
   computed: {
@@ -43,6 +48,8 @@ export default {
       // This only exists to force a key-swap after pressing the button to start a new game; the news ticker can break
       // if it isn't redrawn
       this.newGameKey = Pelle.isDoomed;
+
+      this.isPastInit = player.pastInitialScreen;
     },
     handleClick() {
       if (PlayerProgress.infinityUnlocked()) manualBigCrunchResetRequest();
@@ -64,24 +71,29 @@ export default {
       class="game-container"
       :style="topMargin"
     >
-      <NewsTicker
-        v-if="news"
-      />
-      <BigCrunchButton />
-      <div
-        v-if="!bigCrunch"
-        class="tab-container"
-      >
-        <HeaderPrestigeGroup />
-        <div class="information-header">
-          <HeaderChallengeDisplay />
-          <HeaderChallengeEffects />
-          <GameSpeedDisplay v-if="hasReality" />
-          <br v-if="hasReality">
-          <HeaderBlackHole />
+      <span v-if="!isPastInit">
+        <Init />
+      </span>
+      <span v-else>
+        <NewsTicker
+          v-if="news"
+        />
+        <BigCrunchButton />
+        <div
+          v-if="!bigCrunch"
+          class="tab-container"
+        >
+          <HeaderPrestigeGroup />
+          <div class="information-header">
+            <HeaderChallengeDisplay />
+            <HeaderChallengeEffects />
+            <GameSpeedDisplay v-if="hasReality" />
+            <br v-if="hasReality">
+            <HeaderBlackHole />
+          </div>
+          <slot />
         </div>
-        <slot />
-      </div>
+      </span>
     </div>
   </div>
 </template>

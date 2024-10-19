@@ -1,5 +1,6 @@
 <script>
 import MultipleAutobuyersBox from "./MultipleAutobuyersBox";
+import QuantumMultipleAutobuyersBox from "./QuantumMultipleAutobuyersBox";
 import MultipleSingleAutobuyersGroup from "./MultipleSingleAutobuyersGroup";
 
 // This component, for some reason, contains every single autobuyer except for tickspeed and prestiges
@@ -7,11 +8,12 @@ export default {
   name: "SimpleAutobuyersMultiBox",
   components: {
     MultipleAutobuyersBox,
+    QuantumMultipleAutobuyersBox,
     MultipleSingleAutobuyersGroup
   },
   computed: {
     multiple() {
-      return Autobuyers.display[0];
+      return Autobuyers.displayQuantum;
     },
   }
 };
@@ -19,11 +21,16 @@ export default {
 
 <template>
   <span class="l-autobuyers-tab">
-    <MultipleAutobuyersBox
+    <QuantumMultipleAutobuyersBox
       v-for="(type, id) in multiple"
       :key="id"
       :type="type"
     />
+    <!--<MultipleAutobuyersBox
+      v-for="(type, id) in multiple"
+      :key="id"
+      :type="type"
+    />-->
     <MultipleSingleAutobuyersGroup />
   </span>
 </template>

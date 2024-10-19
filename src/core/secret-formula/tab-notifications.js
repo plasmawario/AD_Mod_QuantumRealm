@@ -1,8 +1,41 @@
 import { DC } from "../constants";
 
 export const tabNotifications = {
-  firstInfinity: {
+  firstFusion: {
     id: 0,
+    tabsToHighLight: [
+      {
+        parent: "fermions",
+        tab: "electron"
+      },
+      {
+        parent: "automation",
+        tab: "quantumAutobuyers"
+      },
+      {
+        parent: "bosons",
+        tab: "gluon"
+      },
+      {
+        parent: "bosons",
+        tab: "bosonUpgrades"
+      }
+    ],
+    condition: () => !PlayerProgress.matterUnlocked(),
+    events: [GAME_EVENT.FUSION_BEFORE]
+  },
+  FCUnlock: {
+    id: 1,
+    tabsToHighLight: [
+      {
+        parent: "challenges",
+        tab: "fusion"
+      }
+    ],
+    condition: () => true
+  },
+  firstInfinity: {
+    id: 100,
     tabsToHighLight: [
       {
         parent: "infinity",
@@ -23,7 +56,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.BIG_CRUNCH_BEFORE]
   },
   breakInfinity: {
-    id: 1,
+    id: 101,
     tabsToHighLight: [
       {
         parent: "infinity",
@@ -34,7 +67,7 @@ export const tabNotifications = {
       !PlayerProgress.eternityUnlocked() && Autobuyer.bigCrunch.hasMaxedInterval
   },
   IDUnlock: {
-    id: 2,
+    id: 102,
     tabsToHighLight: [
       {
         parent: "dimensions",
@@ -45,7 +78,7 @@ export const tabNotifications = {
       !PlayerProgress.eternityUnlocked() && !InfinityDimension(2).isUnlocked
   },
   ICUnlock: {
-    id: 3,
+    id: 103,
     tabsToHighLight: [
       {
         parent: "challenges",
@@ -56,7 +89,7 @@ export const tabNotifications = {
       !PlayerProgress.eternityUnlocked()
   },
   replicanti: {
-    id: 4,
+    id: 104,
     tabsToHighLight: [
       {
         parent: "infinity",
@@ -68,7 +101,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.BIG_CRUNCH_AFTER]
   },
   firstEternity: {
-    id: 5,
+    id: 105,
     tabsToHighLight: [
       {
         parent: "eternity",
@@ -92,7 +125,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.ETERNITY_RESET_BEFORE]
   },
   dilationAfterUnlock: {
-    id: 6,
+    id: 106,
     tabsToHighLight: [
       {
         parent: "eternity",
@@ -102,7 +135,7 @@ export const tabNotifications = {
     condition: () => !PlayerProgress.realityUnlocked()
   },
   realityUnlock: {
-    id: 7,
+    id: 107,
     tabsToHighLight: [
       {
         parent: "eternity",
@@ -114,7 +147,7 @@ export const tabNotifications = {
       GAME_EVENT.OFFLINE_CURRENCY_GAINED, GAME_EVENT.ACHIEVEMENT_UNLOCKED]
   },
   blackHoleUnlock: {
-    id: 8,
+    id: 108,
     tabsToHighLight: [
       {
         parent: "reality",
@@ -125,7 +158,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.REALITY_RESET_AFTER]
   },
   automatorUnlock: {
-    id: 9,
+    id: 109,
     tabsToHighLight: [
       {
         parent: "automation",
@@ -136,7 +169,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.REALITY_RESET_AFTER]
   },
   teresaUnlock: {
-    id: 10,
+    id: 110,
     tabsToHighLight: [
       {
         parent: "celestials",
@@ -151,7 +184,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.REALITY_UPGRADE_BOUGHT]
   },
   alchemyUnlock: {
-    id: 11,
+    id: 111,
     tabsToHighLight: [
       {
         parent: "reality",
@@ -166,7 +199,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.GAME_TICK_AFTER]
   },
   newAutobuyer: {
-    id: 12,
+    id: 112,
     tabsToHighLight: [
       {
         parent: "automation",
@@ -177,7 +210,7 @@ export const tabNotifications = {
     condition: () => !Pelle.isDoomed,
   },
   imaginaryMachineUnlock: {
-    id: 13,
+    id: 113,
     tabsToHighLight: [
       {
         parent: "reality",
@@ -188,7 +221,7 @@ export const tabNotifications = {
     events: [GAME_EVENT.GAME_TICK_AFTER]
   },
   laitelaUnlock: {
-    id: 14,
+    id: 114,
     tabsToHighLight: [
       {
         parent: "celestials",
@@ -199,7 +232,7 @@ export const tabNotifications = {
     condition: () => true,
   },
   pelleUnlock: {
-    id: 15,
+    id: 115,
     tabsToHighLight: [
       {
         parent: "celestials",
@@ -210,7 +243,7 @@ export const tabNotifications = {
     condition: () => true,
   },
   newGlyphCosmetic: {
-    id: 16,
+    id: 116,
     tabsToHighLight: [
       {
         parent: "reality",

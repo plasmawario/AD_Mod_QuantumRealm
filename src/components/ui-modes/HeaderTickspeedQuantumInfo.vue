@@ -2,7 +2,7 @@
 import GameSpeedDisplay from "@/components/GameSpeedDisplay";
 
 export default {
-  name: "HeaderTickspeedInfo",
+  name: "HeaderTickspeedQuantumInfo",
   components: {
     GameSpeedDisplay
   },

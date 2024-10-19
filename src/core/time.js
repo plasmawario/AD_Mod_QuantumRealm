@@ -75,6 +75,60 @@ export const Time = {
     this.toMilliseconds(timespan, value => player.records.totalTimePlayed = value);
   },
 
+  /*
+------------------------------------------------------------------------------------------
+  */
+
+   /**
+   * @returns {TimeSpan}
+   */
+   get thisFusion() {
+    return this.fromMilliseconds(() => player.records.thisFusion.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisFusion(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisFusion.time = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get thisFusionRealTime() {
+    return this.fromMilliseconds(() => player.records.thisFusion.realTime);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set thisFusionRealTime(timespan) {
+    this.toMilliseconds(timespan, value => player.records.thisFusion.realTime = value);
+  },
+
+  /**
+   * @returns {TimeSpan}
+   */
+  get bestFusion() {
+    return this.fromMilliseconds(() => player.records.bestFusion.time);
+  },
+  /**
+   * @param {TimeSpan} timespan
+   */
+  set bestFusion(timespan) {
+    this.toMilliseconds(timespan, value => player.records.bestFusion.time = value);
+  },
+
+  /**
+   * @return {TimeSpan}
+   */
+  get fusionChallengeSum() {
+    return this.fromMilliseconds(() => GameCache.fusionChallengeTimeSum.value);
+  },
+
+  /*
+------------------------------------------------------------------------------------------
+  */
+
   /**
    * @returns {TimeSpan}
    */

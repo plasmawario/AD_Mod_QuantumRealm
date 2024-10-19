@@ -1,6 +1,7 @@
 import { multiplierTabTree, multiplierTabValues } from "./multiplier-tab";
 
 import { fermions } from "./fermions";
+import { fusion } from "./fusion";
 
 import { achievements } from "./achievements";
 import { awayProgressTypes } from "./away-progress-types";
@@ -24,6 +25,7 @@ import { tabs } from "./tabs";
 
 export const GameDatabase = {
   fermions,
+  fusion,
 
   achievements,
   awayProgressTypes,

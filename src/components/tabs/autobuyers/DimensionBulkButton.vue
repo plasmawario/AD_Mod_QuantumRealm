@@ -21,10 +21,13 @@ export default {
   computed: {
     bulkDisplay() {
       if (this.hasMaxedBulk) {
-        return `${formatX(this.bulk, 2, 0)} bulk buy (capped)`;
+        return `Unlimited bulk buy (capped)`;
       }
       const newBulk = Math.min(this.bulk * 2, this.autobuyer.bulkCap);
-      return `${formatX(this.bulk, 2, 0)} ➜ ${formatX(newBulk, 2, 0)} bulk buy`;
+      return newBulk === this.autobuyer.bulkCap ? 
+          `${formatX(this.bulk, 2, 0)} ➜ Unlimited bulk buy`
+          :
+          `${formatX(this.bulk, 2, 0)} ➜ ${formatX(newBulk, 2, 0)} bulk buy`;
     },
     classObject() {
       return {
@@ -43,7 +46,7 @@ export default {
       this.bulkUnlimited = autobuyer.hasUnlimitedBulk;
       this.bulk = autobuyer.bulk;
       this.cost = autobuyer.cost;
-      this.isAffordable = Currency.infinityPoints.gte(this.cost);
+      this.isAffordable = Currency.matter_quantum.gte(this.cost);
     },
     upgradeBulk() {
       this.autobuyer.upgradeBulk();
@@ -61,7 +64,7 @@ export default {
     <span>{{ bulkDisplay }}</span>
     <template v-if="!hasMaxedBulk">
       <br>
-      <span>Cost: {{ format(cost, 2, 0) }} IP</span>
+      <span>Cost: {{ format(cost, 2, 0) }} Matter</span>
     </template>
   </button>
   <button

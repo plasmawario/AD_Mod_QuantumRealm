@@ -29,7 +29,7 @@ export default {
       this.cost = this.autobuyer.cost;
       this.isMaxed = this.autobuyer.hasMaxedInterval;
       this.isUpgradeable = this.autobuyer.canBeUpgraded;
-      this.isAffordable = Currency.infinityPoints.gte(this.cost);
+      this.isAffordable = Currency.matter_quantum.gte(this.cost);
     },
     upgradeInterval() {
       this.autobuyer.upgradeInterval();
@@ -44,9 +44,9 @@ export default {
     :class="classObject"
     @click="upgradeInterval"
   >
-    {{ formatPercents(0.4) }} smaller interval
+    {{ formatPercents(0.5) }} smaller interval
     <br>
-    Cost: {{ format(cost, 2) }} IP
+    Cost: {{ format(cost, 2) }} Matter
   </button>
   <button
     v-else-if="!isMaxed"

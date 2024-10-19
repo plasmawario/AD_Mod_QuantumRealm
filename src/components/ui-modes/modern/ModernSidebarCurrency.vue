@@ -14,6 +14,9 @@ export default {
       showEP: false,
       showRM: false,
       showRS: false,
+
+      matter: new Decimal(0),
+      showEnergy: false,
     };
   },
   methods: {
@@ -29,6 +32,8 @@ export default {
       this.showEP = PlayerProgress.eternityUnlocked();
       this.showRM = PlayerProgress.realityUnlocked();
       this.showRS = Pelle.isDoomed;
+
+      this.matter.copyFrom(Currency.matter_quantum.value.floor());
     }
   },
 };
@@ -36,7 +41,7 @@ export default {
 
 <template>
   <div class="c-sidebar-resource">
-    <template v-if="showRS">
+    <!--<template v-if="showRS">
       <h2 class="o-sidebar-currency--pelle">
         {{ format(RS, 2) }}
       </h2>
@@ -84,6 +89,14 @@ export default {
       </h2>
       <div class="c-sidebar-resource__information">
         <span class="c-sidebar-resource__name">Antimatter</span>
+      </div>
+    </template>-->
+    <template>
+      <h2 class="o-sidebar-currency--matter">
+        {{ format(matter, 2, 1) }}
+      </h2>
+      <div class="c-sidebar-resource__information">
+        <span class="c-sidebar-resource__name">Matter</span>
       </div>
     </template>
   </div>

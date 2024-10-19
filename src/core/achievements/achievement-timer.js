@@ -31,3 +31,7 @@ export const AchievementTimers = {
   pain: new AchievementTimer(true),
   stats: new AchievementTimer(true)
 };
+
+export const QuantumAchievementTimers = {
+  //solarpowered: new AchievementTimer(false),
+};

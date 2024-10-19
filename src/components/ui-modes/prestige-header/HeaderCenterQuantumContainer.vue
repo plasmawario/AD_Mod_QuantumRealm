@@ -1,4 +1,6 @@
 <script>
+import { FusionChallenge } from "../../../core/fusion-challenges";
+import { Player } from "../../../core/player";
 import HeaderTickspeedQuantumInfo from "../HeaderTickspeedQuantumInfo";
 
 // This component contains antimatter and antimatter rate at the start of the game, as well as some additional
@@ -14,6 +16,8 @@ export default {
       shouldDisplay: true,
       isModern: false,
       matter: new Decimal(0),
+      w: new Decimal(0),
+      isDecaying: false,
       //matterPerSec: new Decimal(0),
       energy: new Decimal(0),
       energyPerSec: new Decimal(0),
@@ -25,6 +29,8 @@ export default {
 
       this.isModern = player.options.newUI;
       this.matter.copyFrom(Currency.matter_quantum);
+      this.w.copyFrom(Currency.w);
+      this.isDecaying = player.decay.isActive;
       //this.matterPerSec.copyFrom(Currency.matter.productionPerSecond);
     },
   },
@@ -36,12 +42,18 @@ export default {
     v-if="shouldDisplay"
     class="c-prestige-button-container"
   >
-    <span>You have <span class="c-game-header__antimatter">{{ format(matter, 2, 1) }}</span> matter.</span>
+    <span v-if="isDecaying">
+      You have <span class="c-game-header__w-boson">{{ format(w, 2, 1) }}</span> {{ pluralize("W Boson", w) }}.
+    </span>
+    <span v-else>
+      You have <span class="c-game-header__antimatter">{{ format(matter, 2, 1) }}</span> matter.
+    </span>
     
     <div>
       <!--You are getting {{ format(matterPerSec, 2) }} matter per second.-->
       <br>
       <HeaderTickspeedQuantumInfo />
+      <br/>
     </div>
   </div>
 </template>

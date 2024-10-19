@@ -12,12 +12,17 @@ export default {
   },
   data() {
     return {
+      fusionUnlocked: false,
+
       infinityUnlocked: false,
       eternityUnlocked: false,
       dilationUnlocked: false,
       tachyonsUnlocked: false,
       realityUnlocked: false,
       animatedThemeUnlocked: false,
+
+      fusion: false,
+
       bigCrunch: false,
       eternity: false,
       dilation: false,
@@ -43,6 +48,10 @@ export default {
     }
   },
   watch: {
+    fusion(newValue) {
+      player.options.animations.fusion = newValue;
+    },
+
     bigCrunch(newValue) {
       player.options.animations.bigCrunch = newValue;
     },
@@ -68,6 +77,8 @@ export default {
   methods: {
     update() {
       const progress = PlayerProgress.current;
+      this.fusionUnlocked = progress.isMatterUnlocked;
+
       this.infinityUnlocked = this.fullCompletion || progress.isInfinityUnlocked;
       this.eternityUnlocked = this.fullCompletion || progress.isEternityUnlocked;
       this.realityUnlocked = this.fullCompletion || progress.isRealityUnlocked;
@@ -78,6 +89,8 @@ export default {
       this.isS11Active = Theme.currentName() === "S11";
 
       const options = player.options.animations;
+      this.fusion = options.fusion;
+
       this.bigCrunch = options.bigCrunch;
       this.eternity = options.eternity;
       this.dilation = options.dilation;
@@ -100,6 +113,12 @@ export default {
       Animation Options
     </template>
     <div class="c-modal-options__button-container">
+      <ModalOptionsToggleButton
+        v-if="fusionUnlocked"
+        v-model="fusion"
+        text="Nuclear Fusion:"
+      />
+
       <ModalOptionsToggleButton
         v-if="infinityUnlocked"
         v-model="bigCrunch"

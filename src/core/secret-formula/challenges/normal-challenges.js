@@ -110,7 +110,7 @@ export const normalChallenges = [
       "and Antimatter Galaxy costs are modified.",
     name: "Automated Dimension Boosts",
     reward: "Dimension Boosts Autobuyer",
-    lockedAt: DC.D16,
+    lockedAt: DC.D0,//DC.D16,
   },
   {
     id: 11,
@@ -120,7 +120,7 @@ export const normalChallenges = [
       "Dimension. If it exceeds your antimatter, it will Dimension Boost without giving the bonus.",
     name: "Automated Antimatter Galaxies",
     reward: "Antimatter Galaxies Autobuyer",
-    lockedAt: DC.D16,
+    lockedAt: DC.D0,//DC.D16,
   },
   {
     id: 12,
@@ -131,6 +131,6 @@ export const normalChallenges = [
       The 2nd, 4th, and 6th Dimensions are made stronger to compensate.`,
     name: "Automated Big Crunches",
     reward: "Big Crunches Autobuyer",
-    lockedAt: DC.D16,
+    lockedAt: DC.D0,//DC.D16,
   }
 ];

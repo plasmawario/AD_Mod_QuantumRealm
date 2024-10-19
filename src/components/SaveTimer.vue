@@ -9,6 +9,7 @@ export default {
       lastCloudSave: 0,
       showTimeSinceSave: false,
       saveDisabled: false,
+      isPastInit: false,
     };
   },
   computed: {
@@ -28,6 +29,7 @@ export default {
       this.lastCloudSave = GameStorage.lastCloudSave;
       this.showTimeSinceSave = player.options.showTimeSinceSave;
       this.saveDisabled = GameEnd.endState >= END_STATE_MARKERS.INTERACTIVITY_DISABLED;
+      this.isPastInit = player.pastInitialScreen;
     },
     save() {
       GameStorage.save(false, true);
@@ -37,14 +39,16 @@ export default {
 </script>
 
 <template>
-  <div
-    v-if="showTimeSinceSave"
-    class="o-save-timer"
-    @click="save"
-  >
-    <b v-if="saveDisabled">There is nothing left to save.</b>
-    <span v-else>Time since last save: {{ timeString }}</span>
-  </div>
+  <span v-if="isPastInit">
+    <div
+      v-if="showTimeSinceSave"
+      class="o-save-timer"
+      @click="save"
+    >
+      <b v-if="saveDisabled">There is nothing left to save.</b>
+      <span v-else>Time since last save: {{ timeString }}</span>
+    </div>
+  </span>
 </template>
 
 <style scoped>

@@ -1,3 +1,9 @@
+window.PRESTIGE_QUANTUM_EVENT = {
+  UPBOOST: 0,
+  DOWNBOOST: 1,
+  FUSION: 2,
+}
+
 window.PRESTIGE_EVENT = {
   DIMENSION_BOOST: 0,
   ANTIMATTER_GALAXY: 1,
@@ -26,6 +32,10 @@ export const DC = deepFreeze({
   D0:                   new Decimal("0"),
 
   D0_01:                new Decimal("0.01"),
+  D0_02:                new Decimal("0.02"),
+
+  D0_05:                new Decimal("0.05"),
+  
   D0_1:                 new Decimal("0.1"),
   D0_4:                 new Decimal("0.4"),
   D0_55:                new Decimal("0.55"),
@@ -39,20 +49,41 @@ export const DC = deepFreeze({
   D1_0025:              new Decimal("1.0025"),
   D1_005:               new Decimal("1.005"),
   D1_007:               new Decimal("1.007"),
+
+  D1_01:               new Decimal("1.01"),
   D1_02:                new Decimal("1.02"),
+
   D1_0285:              new Decimal("1.0285"),
 
   D1_1:                 new Decimal("1.1"),
 
   D1_2:                 new Decimal("1.2"),
+
+  D1_21:                new Decimal("1.21"),
+  D1_22:                new Decimal("1.22"),
+
   D1_3:                 new Decimal("1.3"),
+  D1_31:                new Decimal("1.31"),
+
+  D1_4:                 new Decimal("1.4"),
+  D1_5:                 new Decimal("1.5"),
   D2:                   new Decimal("2"),
+
+  D2_5:                 new Decimal("2.5"),
+
   D3:                   new Decimal("3"),
+
   D4:                   new Decimal("4"),
   D5:                   new Decimal("5"),
   D6_66:                new Decimal("6.66"),
+
+  D12:                  new Decimal("12"),
+  
   D15:                  new Decimal("15"),
   D16:                  new Decimal("16"),
+
+  D5E1:                 new Decimal("5e1"),
+  D3E2:                 new Decimal("3e2"),
 
   D2E3:                 new Decimal("2e3"),
   D2E4:                 new Decimal("2e4"),
@@ -87,16 +118,31 @@ export const DC = deepFreeze({
 
   E5:                   new Decimal("1e5"),
   E6:                   new Decimal("1e6"),
+
+  E7:                   new Decimal("1e7"),
+
   E8:                   new Decimal("1e8"),
   E9:                   new Decimal("1e9"),
   E10:                  new Decimal("1e10"),
+
+  E11:                  new Decimal("1e11"),
+
   E12:                  new Decimal("1e12"),
   E15:                  new Decimal("1e15"),
+
+  E16:                   new Decimal("1e16"),
+
   E20:                  new Decimal("1e20"),
+
+  E24:                  new Decimal("1e24"),
+
   E25:                  new Decimal("1e25"),
   E29:                  new Decimal("1e29"),
   E30:                  new Decimal("1e30"),
   E31:                  new Decimal("1e31"),
+
+  E32:                  new Decimal("1e32"),
+
   E40:                  new Decimal("1e40"),
   E45:                  new Decimal("1e45"),
   E50:                  new Decimal("1e50"),
@@ -107,6 +153,9 @@ export const DC = deepFreeze({
   E70:                  new Decimal("1e70"),
   E75:                  new Decimal("1e75"),
   E80:                  new Decimal("1e80"),
+
+  E85:                  new Decimal("1e85"),
+
   E90:                  new Decimal("1e90"),
   E100:                 new Decimal("1e100"),
   E140:                 new Decimal("1e140"),
@@ -114,6 +163,9 @@ export const DC = deepFreeze({
   E160:                 new Decimal("1e160"),
   E170:                 new Decimal("1e170"),
   E175:                 new Decimal("1e175"),
+
+  E190:                 new Decimal("1e190"),
+
   E200:                 new Decimal("1e200"),
   E250:                 new Decimal("1e250"),
   E260:                 new Decimal("1e260"),
@@ -134,6 +186,9 @@ export const DC = deepFreeze({
   E616:                 new Decimal("1e616"),
   E650:                 new Decimal("1e650"),
   E750:                 new Decimal("1e750"),
+  
+  E800:                 new Decimal("1e800"),
+
   E850:                 new Decimal("1e850"),
   E900:                 new Decimal("1e900"),
   E925:                 new Decimal("1e925"),
@@ -205,6 +260,109 @@ export const DC = deepFreeze({
   E1_5E12:              new Decimal("1e1500000000000"),
   E1E15:                new Decimal("1e1000000000000000"),
 });
+
+export const fusionThresholdVals = [
+  new Decimal("1.8e308"),
+  new Decimal("5.22e323"),
+  new Decimal("8.99e377"),
+  new Decimal("2.75e416"),
+  new Decimal("1.92e446"),
+  new Decimal("4.69e470"),
+  new Decimal("1.96e491"),
+  new Decimal("1.42e509"),
+  new Decimal("8.07e524"),
+  new Decimal("1e539"),
+  new Decimal("5.61e551"),
+  new Decimal("2.45e563"),
+  new Decimal("1.25e574"),
+  new Decimal("1.02e584"),
+  new Decimal("1.73e593"),
+  new Decimal("7.4e601"),
+  new Decimal("9.52e609"),
+  new Decimal("4.21e617"),
+  new Decimal("7.18e624"),
+  new Decimal("5.22e631"),
+  new Decimal("1.76e638"),
+  new Decimal("2.93e644"),
+  new Decimal("2.59e650"),
+  new Decimal("1.28e656"),
+  new Decimal("3.68e661"),
+  new Decimal("6.49e666"),
+  new Decimal("7.25e671"),
+  new Decimal("5.31e676"),
+  new Decimal("2.63e681"),
+  new Decimal("8.99e685"),
+  new Decimal("2.19e690"),
+  new Decimal("3.86e694"),
+  new Decimal("5.04e698"),
+  new Decimal("4.97e702"),
+  new Decimal("3.75e706"),
+  new Decimal("2.2e710"),
+  new Decimal("1.02e714"),
+  new Decimal("3.75e717"),
+  new Decimal("1.12e721"),
+  new Decimal("2.72e724"),
+  new Decimal("5.47e727"),
+  new Decimal("9.14e730"),
+  new Decimal("1.29e734"),
+  new Decimal("1.53e737"),
+  new Decimal("1.55e740"),
+  new Decimal("1.35e743"),
+  new Decimal("1.02e746"),
+  new Decimal("6.65e748"),
+  new Decimal("3.81e751"),
+  new Decimal("1.92e754"),
+  new Decimal("8.55e756"),
+  new Decimal("3.39e759"),
+  new Decimal("1.2e762"),
+  new Decimal("3.78e764"),
+  new Decimal("1.08e767"),
+  new Decimal("2.77e769"),
+  new Decimal("6.45e771"),
+  new Decimal("1.37e774"),
+  new Decimal("2.65e776"),
+  new Decimal("4.69e778"),
+  new Decimal("7.62e780"),
+  new Decimal("1.14e783"),
+  new Decimal("1.58e785"),
+  new Decimal("2.02e787"),
+  new Decimal("2.39e789"),
+  new Decimal("2.63e791"),
+  new Decimal("2.7e793"),
+  new Decimal("2.59e795"),
+  new Decimal("2.33e797"),
+  new Decimal("1.96e799"),
+  new Decimal("1.55e801"),
+  new Decimal("1.15e803"),
+  new Decimal("8.01e804"),
+  new Decimal("5.29e806"),
+  new Decimal("3.31e808"),
+  new Decimal("1.96e810"),
+  new Decimal("1.1e812"),
+  new Decimal("5.83e813"),
+  new Decimal("2.95e815"),
+  new Decimal("1.42e817"),
+  new Decimal("6.51e818"),
+  new Decimal("2.85e820"),
+  new Decimal("1.2e822"),
+  new Decimal("4.77e823"),
+  new Decimal("1.83e825"),
+  new Decimal("6.7e826"),
+  new Decimal("2.36e828"),
+  new Decimal("7.96e829"),
+  new Decimal("2.59e831"),
+  new Decimal("8.07e832"),
+  new Decimal("2.43e834"),
+  new Decimal("7.03e835"),
+  new Decimal("1.97e837"),
+  new Decimal("5.29e838"),
+  new Decimal("1.38e840"),
+  new Decimal("3.47e841"),
+  new Decimal("8.43e842"),
+  new Decimal("1.99e844"),
+  new Decimal("4.53e845"),
+  new Decimal("1e847"),
+];
 
 window.AUTOBUYER_MODE = {
   BUY_SINGLE: 1,
@@ -486,6 +644,34 @@ window.SORT_ORDER = {
 };
 
 // One-indexed and ordered to simplify code elsewhere, do not change to be zero-indexed or reorder
+
+/*
+----------------------------------------
+*/
+
+window.PROGRESS_QUANTUM_STAGE = {
+  PRE_MATTER: 1,
+  POST_MATTER: 2,
+  WEB: 3,
+}
+
+window.QUANTUM_WEB_TREE_TYPE = {
+  NORMAL: 0,
+};
+
+window.QUANTUM_NODE_TYPE = {
+  NORMAL: 0,
+};
+
+window.QUANTUM_NODE_REQUIREMENT_TYPE = {
+  AT_LEAST_ONE: 0,
+  ALL: 1,
+};
+
+/*
+----------------------------------------
+*/
+
 window.PROGRESS_STAGE = {
   PRE_INFINITY: 1,
 

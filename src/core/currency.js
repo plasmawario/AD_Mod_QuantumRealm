@@ -1,6 +1,4 @@
 import { DC } from "./constants";
-import { QuarkGenerator } from "./globals";
-
 
 /**
  * @abstract
@@ -202,6 +200,14 @@ window.DecimalCurrency = DecimalCurrency;
 */
 
 /***
+ * the number of times the player has performed nuclear fusion
+ */
+Currency.fused = new class extends DecimalCurrency {
+  get value() { return player.timesNuclearFused; }
+  set value(value) { player.timesNuclearFused = value; }
+}();
+
+/***
  * the number of matter the player has
  */
 Currency.matter_quantum = new class extends DecimalCurrency {
@@ -210,9 +216,12 @@ Currency.matter_quantum = new class extends DecimalCurrency {
   set value(value) {
     player.matter_quantum = value;
 
+    player.records.totalMatter_Quantum = player.records.totalMatter_Quantum.max(value);
+    player.records.maxMatter = player.records.maxMatter.max(value);
   }
 
   add(amount) {
+    player.records.totalMatter_Quantum = player.records.totalMatter_Quantum.add(amount);
     super.add(amount);
   }
 
@@ -236,71 +245,155 @@ Currency.quarks1 = new class extends DecimalCurrency {
 
   set value(value) {
     player.quarks.quark1 = value;
+
+    player.records.maxQuarks = player.records.maxQuarks.max(value);
+    player.records.thisFusion.maxQuarks = player.records.thisFusion.maxQuarks.max(value);
   }
 
   add(amount) {
+    player.records.totalQuarks = player.records.totalQuarks.add(amount);
     super.add(amount);
   }
 
   get productionPerSecond() {
-    return QuarkGenerator(1).productionPerRealSecond.add(QuarkGenerator(2).productionPerRealSecond);
+    return UpQuarkGenerator(1).productionPerRealSecond.add(DownQuarkGenerator(1).productionPerRealSecond);
   }
 
   get startingValue() {
     return Effects.max(
-      10
+      10,
+      QuantumAchievement(23),
+      QuantumAchievement(34),
+    ).toDecimal();
+  }
+
+  reset() {
+    super.reset();
+    player.records.thisFusion.maxQuarks = this.startingValue;
+  }
+}();
+
+/***
+ * The number of 1st generation quarks the player has
+ */
+Currency.electrons = new class extends DecimalCurrency {
+  get value() { return player.electrons.electrons; }
+
+  set value(value) {
+    player.electrons.electrons = value;
+
+    player.records.maxElectrons = player.records.maxElectrons.max(value);
+    player.records.thisFusion.maxElectrons = player.records.thisFusion.maxElectrons.max(value);
+  }
+
+  add(amount) {
+    player.records.totalElectrons = player.records.totalElectrons.add(amount);
+    super.add(amount);
+  }
+
+  get productionPerSecond() {
+    return ElectronGenerator(1).productionPerRealSecond;
+  }
+
+  get startingValue() {
+    return Effects.max(
+      0
+    ).toDecimal();
+  }
+
+  reset() {
+    super.reset();
+    player.records.thisFusion.maxElectrons = this.startingValue;
+  }
+}();
+
+/***
+ * the number of gluons the player has
+ */
+Currency.gluons = new class extends DecimalCurrency {
+  get value() { return player.nuclearFusion.gluons; }
+  set value(value) { player.nuclearFusion.gluons = value; }
+
+  add(amount) {
+    player.records.totalGluons = player.records.totalGluons.add(amount);
+    super.add(amount);
+  }
+
+  get startingValue() {
+    return Effects.max(
+      1
     ).toDecimal();
   }
 }();
 
 /***
- * The number of 2nd generation quarks the player has
+ * the strength of gluons, making each one produce more matter
  */
-Currency.quarks2 = new class extends DecimalCurrency {
-  get value() { return player.quarks.quark2; }
-
-  set value(value) {
-    player.quark.quark2 = value;
-  }
-
-  add(amount) {
-    super.add(amount);
-  }
-
-  get productionPerSecond() {
-    return QuarkGenerator(1).productionPerRealSecond.add(QuarkGenerator(2).productionPerRealSecond);
-  }
+Currency.gluonMult = new class extends NumberCurrency {
+  get value() { return player.nuclearFusion.gluonMult; }
+  set value(value) { player.nuclearFusion.gluonMult = value; }
 
   get startingValue() {
     return Effects.max(
-      20
-    ).toDecimal();
+      1
+    );
   }
 }();
 
 /***
- * The number of 3rd generation quarks the player has
+ * production multiplier for Fusion Challenge 2
  */
-Currency.quarks3 = new class extends DecimalCurrency {
-  get value() { return player.quarks.quark3; }
-
-  set value(value) {
-    player.quarks.quark3 = value;
-  }
-
-  add(amount) {
-    super.add(amount);
-  }
-
-  get productionPerSecond() {
-    return QuarkGenerator(1).productionPerRealSecond.add(QuarkGenerator(2).productionPerRealSecond);
-  }
+Currency.fc2_production = new class extends NumberCurrency {
+  get value() { return player.nuclearFusion.fc2_production; }
+  set value(value) { player.nuclearFusion.fc2_production = value; }
 
   get startingValue() {
-    return Effects.max(
-      30
-    ).toDecimal();
+    return 1
   }
+
+  reset() {
+    super.reset();
+  }
+}();
+
+/**
+ * currency for handling the quantum web
+ */
+Currency.strings = new class extends DecimalCurrency {
+  get value() { return player.web.strings; }
+  set value(value) { 
+    player.web.totalStrings = value.sub(player.web.strings).max(0).add(player.web.totalStrings);
+    player.web.strings = value; 
+    //player.web.totalStrings = value.plus(WebStrings.calculateStringsCost());
+    
+  }
+
+  get max() { return player.web.totalStrings; }
+
+  reset() {
+    super.reset();
+    StringPurchaseType.matter.reset();
+    player.web.totalStrings = this.startingValue;
+  }
+}();
+
+Currency.electricCharge = new class extends DecimalCurrency {
+  get value() { return player.nuclearFusion.electricCharge; }
+  set value(value) { player.nuclearFusion.electricCharge = value; }
+}();
+
+//this chunk here is used during the nuclear decay portion of the game
+Currency.w = new class extends DecimalCurrency {
+  get value() { return player.decay.w; }
+  set value(value) { player.decay.w = value; }
+}();
+Currency.z = new class extends DecimalCurrency {
+  get value() { return player.decay.z; }
+  set value(value) { player.decay.z = value; }
+}();
+Currency.nuclearPower = new class extends DecimalCurrency {
+  get value() { return player.decay.nuclearPower; }
+  set value(value) { player.decay.nuclearPower = value; }
 }();
 
 /*

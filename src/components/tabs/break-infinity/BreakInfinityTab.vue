@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     update() {
-      this.isUnlocked = Autobuyer.bigCrunch.hasMaxedInterval;
+      this.isUnlocked = true;//Autobuyer.bigCrunch.hasMaxedInterval;
     },
     btnClassObject(column) {
       return {

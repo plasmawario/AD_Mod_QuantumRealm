@@ -11,7 +11,8 @@ export default {
   data() {
     return {
       isHidden: false,
-      tabVisibilities: []
+      tabVisibilities: [],
+      isPastInit: false,
     };
   },
   computed: {
@@ -21,28 +22,32 @@ export default {
     update() {
       this.isHidden = AutomatorData.isEditorFullscreen;
       this.tabVisibilities = Tabs.newUI.map(x => x.isAvailable);
+
+      this.isPastInit = player.pastInitialScreen;
     },
   },
 };
 </script>
 
 <template>
-  <div
-    v-if="!isHidden"
-    class="c-modern-sidebar"
-  >
-    <ModernSidebarCurrency />
-    <template
-      v-for="(tab, tabPosition) in tabs"
+  <span v-if="isPastInit">
+    <div
+      v-if="!isHidden"
+      class="c-modern-sidebar"
     >
-      <ModernTabButton
-        v-if="tabVisibilities[tabPosition]"
-        :key="tab.name"
-        :tab="tab"
-        :tab-position="tabPosition"
-      />
-    </template>
-  </div>
+      <ModernSidebarCurrency />
+      <template
+        v-for="(tab, tabPosition) in tabs"
+      >
+        <ModernTabButton
+          v-if="tabVisibilities[tabPosition]"
+          :key="tab.name"
+          :tab="tab"
+          :tab-position="tabPosition"
+        />
+      </template>
+    </div>
+  </span>
 </template>
 
 <style scoped>

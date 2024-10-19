@@ -1,4 +1,4 @@
-import { quarkGeneratorCommonMultiplier } from "./globals";
+
 
 class Lazy {
   constructor(getValue) {
@@ -95,11 +95,26 @@ export const GameCache = {
 
   */
 
+  bestRunMatterPM: new Lazy(() =>
+    player.records.recentFusions
+      .map(run => ratePerMinute(run[2], run[0]))
+      .reduce(Decimal.maxReducer)
+  ),
+
+  upQuarkGeneratorCommonMultiplier: new Lazy(() => upQuarkGeneratorCommonMultiplier()),
+  downQuarkGeneratorCommonMultiplier: new Lazy(() => downQuarkGeneratorCommonMultiplier()),
+  electronGeneratorCommonMultiplier: new Lazy(() => electronGeneratorCommonMultiplier()),
+
   quarkGeneratorCommonMultiplier: new Lazy(() => quarkGeneratorCommonMultiplier()),
 
-  tickSpeedQuantumMultDecrease: new Lazy(() => 10 - Effects.sum(
+  postFusionCostScaleMulti: new Lazy(() => 10 - Effects.sum(
+    WebNode.scaleReduce1,
+    WebNode.scaleReduce2,
+    FusionUpgrade2(10),
   )),
 
+  fusionChallengeTimeSum: new Lazy(() => player.challenge.fusion.bestTimes.sum()),
+  
   /*
 
   */

@@ -197,6 +197,9 @@ export const Tabs = (function() {
     },
     oldUI: [
       Tab.fermions,
+      Tab.bosons,
+      Tab.exotic,
+      Tab.mechanisms,
 
       Tab.dimensions,
       Tab.options,
@@ -212,6 +215,9 @@ export const Tabs = (function() {
     ],
     newUI: [
       Tab.fermions,
+      Tab.bosons,
+      Tab.exotic,
+      Tab.mechanisms,
       
       Tab.dimensions,
       Tab.automation,

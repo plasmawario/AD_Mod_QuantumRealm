@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="40mm"
+   height="40mm"
+   viewBox="0 0 40 40"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="string_theory.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="4"
+     inkscape:cx="62"
+     inkscape:cy="60.875"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="envelope"
+       id="path-effect7"
+       is_visible="true"
+       lpeversion="1"
+       yy="true"
+       xx="true"
+       bendpath1="M 8.5722721,2.4230804 31.558032,2.5553721"
+       bendpath2="m 37.577303,2.4230804 -3.175,32.6413496"
+       bendpath3="M 2.6852929,34.932139 37.841887,34.799847"
+       bendpath4="M 2.4207096,2.4230804 7.3155013,34.733701"
+       bendpath1-nodetypes="cc"
+       bendpath3-nodetypes="cc"
+       bendpath4-nodetypes="cc"
+       bendpath2-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect6"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="M 2.4207096,20.000526 C 30.64986,3.6678352 -13.038193,9.6548392 37.577303,20.000526"
+       prop_scale="0.56750473"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false"
+       bendpath-nodetypes="cc" />
+    <inkscape:path-effect
+       effect="lattice2"
+       gridpoint0="2.4207096,2.4230804"
+       gridpoint1="37.577303,2.4230804"
+       gridpoint2="2.4207096,37.577972"
+       gridpoint3="37.577303,37.577972"
+       gridpoint4="11.209858,2.4230804"
+       gridpoint5="28.788155,2.4230804"
+       gridpoint6="11.209858,37.577972"
+       gridpoint7="28.788155,37.577972"
+       gridpoint8x9="19.999006,2.4230804"
+       gridpoint10x11="19.999006,37.577972"
+       gridpoint12="2.4207096,11.211803"
+       gridpoint13="37.577303,11.211803"
+       gridpoint14="2.4207096,28.789249"
+       gridpoint15="37.577303,28.789249"
+       gridpoint16="11.209858,11.211803"
+       gridpoint17="28.788155,11.211803"
+       gridpoint18="11.209858,28.789249"
+       gridpoint19="28.788155,28.789249"
+       gridpoint20x21="19.999006,11.211803"
+       gridpoint22x23="19.999006,28.789249"
+       gridpoint24x26="2.4207096,20.000526"
+       gridpoint25x27="37.577303,20.000526"
+       gridpoint28x30="11.209858,20.000526"
+       gridpoint29x31="28.788155,20.000526"
+       gridpoint32x33x34x35="19.999006,20.000526"
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1"
+       horizontal_mirror="false"
+       vertical_mirror="false"
+       perimetral="true"
+       live_update="true" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="M 2.4207096,20.000526 H 37.577303"
+       prop_scale="1"
+       scale_y_rel="true"
+       vertical="false"
+       hide_knot="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:3;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 9.6764955,35.402411 C 1.0128488,30.085349 1.2421578,9.0915632 10.28967,4.0832744 18.744025,-0.27003224 37.365169,10.096781 37.089966,20.193977 36.923926,30.028723 17.958932,40.380817 9.6764955,35.402411 Z"
+       id="path7"
+       sodipodi:nodetypes="cccc" />
+  </g>
+</svg>

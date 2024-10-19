@@ -2,7 +2,7 @@ import TWEEN from "tween.js";
 
 import { ElectronRuntime, SteamRuntime } from "@/steam";
 
-import { DC } from "./core/constants";
+import { DC, fusionThresholdVals } from "./core/constants";
 import { deepmergeAll } from "@/utility/deepmerge";
 import { DEV } from "@/env";
 import { SpeedrunMilestones } from "./core/speedrun";
@@ -10,7 +10,8 @@ import { Cloud } from "./core/storage";
 import { supportedBrowsers } from "./supported-browsers";
 
 import Payments from "./core/payments";
-import { QuarkGenerators } from "./core/globals";
+import { TutorialQuantum } from "./core/tutorial_quantum";
+import { Autobuyer } from "./core/globals";
 
 if (GlobalErrorHandler.handled) {
   throw new Error("Initialization failed");
@@ -72,6 +73,151 @@ export function playerInfinityUpgradesOnReset() {
   GameCache.tickSpeedMultDecrease.invalidate();
   GameCache.dimensionMultDecrease.invalidate();
 }
+
+/*
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+*/
+
+export function ResetElectronUpgrades(row = 1){
+  player.electrons.upgradeBits = 0;
+}
+
+export function ResetPreFusionAutobuyers(){
+  const up = Autobuyer.upQuarkGenerator.oneIndexed;
+  for (let i = 1; i < up.length; i ++){
+    up[i].reset();
+  }
+
+  const down = Autobuyer.downQuarkGenerator.oneIndexed;
+  for (let i = 1; i < down.length; i ++){
+    down[i].reset();
+  }
+
+  Autobuyer.tickspeedQuantum.reset();
+}
+
+export function gainedMatter() {
+  const divQ = Effects.min(
+    308,
+  );
+  const divE = Effects.min(
+    103,
+  );
+  let m = Decimal.pow10(player.quarks.quark1.log10() / divQ - 0.75).times(Decimal.pow10(player.electrons.electrons.log10() / divE - 0.75).add(1)).floor();
+  //let m = Decimal.pow10(player.records.thisFusion.maxQuarks.log10() / divQ - 0.75).times(Decimal.pow10(player.records.thisFusion.maxElectrons.log10() / divE - 0.75)).floor();
+  
+  //multipliers
+  m = m.times(player.nuclearFusion.gluons);
+  m = m.times(player.nuclearFusion.gluonMult);
+  //m = m.times(WebNode.upBoostMatter.effectOrDefault(1));
+  m = m.times(WebNode.gluonMultUnlock.effectOrDefault(1));
+
+  return m.floor();
+}
+
+export function requiredFermionsForMatter(matterAmount) {
+  let m = new Decimal(matterAmount);
+  const divQ = Effects.min(
+    308,
+  );
+  const divE = Effects.min(
+    103,
+  );
+
+  const values = fusionThresholdVals;
+  const fermions = player.quarks.quark1.times(player.electrons.electrons);
+  let nextIndex = 0;
+
+  //search for the first hard-coded value that we cannot reach yet
+  for (let i = 0; i < values.length; i ++){
+    if (fermions.lt(values[i])) {
+      nextIndex = i;
+      break;
+    }
+  }
+
+  //return the next hard-coded value we must reach
+  if (nextIndex + 1 > values.length) return 0;
+  return values[nextIndex + 1];
+}
+
+export function gainedFusions() {
+  let infGain = Effects.max(
+    1,
+  ).toDecimal();
+
+  const multipliers = Effects.product(
+    WebNode.gluonMultUnlock,
+    FusionUpgrade2(11),
+    QuantumAchievement(43)
+  ).toDecimal();
+
+  infGain = infGain.times(multipliers);
+  if (WebNode.upBoostFusions) infGain = infGain.times(player.upBoosts);
+
+  return infGain;
+}
+
+/**
+ * This function will generate 100 threshold values to reach the next prestige currency. For example, you need
+ * a certain amount of antimatter to gain another IP when reaching infinity. If for whatever reason your
+ * prestige currency function does not have a valid inverse function, you can get hard-coded values that will
+ * serve as an alternate solution, which are accurate down to 0.01, which should be enough for practicality, as
+ * most of the time, these are displayed to that decimal point anyway
+ */
+export function generateHardcodedFusionValues(){
+  //this array will contain all stored threshold values
+  const thresholds = [];
+
+  //define your currencies here. These currencies are contributing factors for gaining more prestige
+  //currencies. Most people only have 1 currency to dictate the prestige function, but some people
+  //might have more than one. Define any extras here
+  let j = new Decimal("1.8e308");
+  let k = new Decimal("0");
+
+  //this will push the initial value of 1.8e308 to the thresholds array, as that is what is required to
+  //prestige in the first place, in most cases
+  thresholds.push(j);
+
+  //these set of loops will generate our 100 hard-coded threshold values for gaining new prestige currencies
+  for (let i = 0; i < 100; i ++){
+
+    //Use the same prestige currency equation here, and store it. This will output how much of the
+    //currency we will gain upon a prestige
+    const prev = Decimal.pow10(j.log10() / 308 - 0.75).times(Decimal.pow10(k.log10() / 103 - 0.75).add(1)).floor();
+
+    //copy prev to next, as next will be changing later
+    let next = prev;
+
+    //Iterate this block of code until we eventually find a value that gives us our next prestige currency
+    while (next.lte(prev)){
+
+      //build a new Decimal and add 0.01e<current j exponent value> to our current value
+      let p = new Decimal(j);
+      p.mantissa = 1;
+      p.exponent -= 2;
+      j = j.add(p);
+
+      //set next to be the number of prestige currency we'll gain after this addition
+      next = Decimal.pow10(j.log10() / 308 - 0.75).times(Decimal.pow10(k.log10() / 103 - 0.75).add(1)).floor();
+    }
+
+    //if we have reached this, then we have found the currency required to reach the next prestige currency.
+    //push the requirement value into this array. Then we do this 100 times until we have all of our 100 values
+    thresholds.push(j);
+  }
+
+  //finally, output the value to the console
+  console.log(thresholds);
+}
+
+/*
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+*/
 
 export function breakInfinity() {
   if (!Autobuyer.bigCrunch.hasMaxedInterval) return;
@@ -240,6 +386,33 @@ export function getEternitiedMilestoneReward(ms, considerMilestoneReached) {
     ? Decimal.floor(player.records.thisReality.bestEternitiesPerMs.times(ms).dividedBy(2))
     : DC.D0;
 }
+
+/*
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+*/
+export function addFusionTime(time, realTime, matter, fusions) {
+  let challenge = "";
+  if (player.challenge.fusion.current) challenge = `Fusion Challenge ${player.challenge.fusion.current}`;
+  player.records.recentFusions.pop();
+  player.records.recentFusions.unshift([time, realTime, matter, fusions, challenge]);
+  GameCache.bestRunMatterPM.invalidate();
+}
+
+export function resetFusionRuns() {
+  player.records.recentFusions = Array.from(
+    { length: 10 },
+    () => [Number.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]
+  );
+  GameCache.bestRunMatterPM.invalidate();
+}
+
+/*
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+*/
 
 function isOfflineEPGainEnabled() {
   return player.options.offlineProgress && !Autobuyer.bigCrunch.autoInfinitiesAvailable() &&
@@ -474,6 +647,11 @@ export function gameLoop(passDiff, options = {}) {
   Autobuyers.tick();
   Tutorial.tutorialLoop();
 
+
+  //
+  TutorialQuantum.tutorialLoop();
+  //
+
   if (Achievement(165).isUnlocked && player.celestials.effarig.autoAdjustGlyphWeights) {
     autoAdjustGlyphWeights();
   }
@@ -522,6 +700,10 @@ export function gameLoop(passDiff, options = {}) {
   // updating and game time updating. This is only particularly noticeable when game speed is 1 and the player
   // expects to see identical numbers. We also don't increment the timers if the game has been beaten (Achievement 188)
   if (!Achievement(188).isUnlocked) {
+
+    player.records.thisFusion.time += diff;
+    player.records.thisFusion.realTime += diff;
+
     player.records.realTimeDoomed += realDiff;
     player.records.realTimePlayed += realDiff;
     player.records.totalTimePlayed += diff;
@@ -571,7 +753,13 @@ export function gameLoop(passDiff, options = {}) {
   ------------------------------------------------------------------------------------------------------------------
   ------------------------------------------------------------------------------------------------------------------
   */
-  QuarkGenerators.tick(diff);
+
+  GeneratePassiveMatter(diff);
+
+  UpQuarkGenerators.tick(diff);
+  DownQuarkGenerators.tick(diff);
+  ElectronGenerators.tick(diff);
+
   /*
   ------------------------------------------------------------------------------------------------------------------
   ------------------------------------------------------------------------------------------------------------------
@@ -676,6 +864,22 @@ function updatePrestigeRates() {
     player.records.thisReality.bestRSmin = currentRSmin;
     player.records.thisReality.bestRSminVal = Effarig.shardsGained;
   }
+
+  /*
+  ------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
+  */
+  const currentMattermin = gainedMatter().dividedBy(Math.clampMin(0.0005, Time.thisFusionRealTime.totalMinutes));
+  if (currentMattermin.gt(player.records.thisFusion.bestMattermin) && Player.canFuse) {
+    player.records.thisFusion.bestMattermin = currentMattermin;
+    player.records.thisFusion.bestMatterminVal = gainedMatter();
+  }
+  /*
+  ------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------
+  */
 }
 
 function passivePrestigeGen() {

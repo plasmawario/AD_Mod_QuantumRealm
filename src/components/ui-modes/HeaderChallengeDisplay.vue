@@ -57,6 +57,11 @@ export default {
           isActive: token => token > 0,
           activityToken: () => player.challenge.normal.current
         },
+        {
+          name: token => `Fusion Challenge ${token}`,
+          isActive: token => token > 0,
+          activityToken: () => player.challenge.fusion.current
+        },
       ];
     },
     activeChallengeNames() {

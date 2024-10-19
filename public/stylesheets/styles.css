@@ -76,10 +76,18 @@ html {
 
   /*
 
-
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
   */
-  --color-fermions: #b31313;
+  /* tab colors */
+  --color-fermions: #b32020;
+  --color-bosons: #3e66b1;
+  --color-exotic: #4fd625;
+  --color-mechanisms: #474747;
+
+  /* Fermions tab */
   --color-quark-up: #db6464;
   --color-quark-up--bg: #743434;
   --color-quark-down: #64dbdb;
@@ -107,10 +115,27 @@ html {
   --color-t-neutrino: #371bd8;
   --color-t-neutrino--bg: #1d0e70;
 
+  /* Bosons tab */
+  --color-gluon: #7e64db;
+  --color-decay-nuclear-power: #e25024;
+  --color-decay-nuclear-power_glow: #e63018;
+  --color-decay-w: #8a190a;
+  --color-decay-z: #dfbb8d;
+  --color-higgs: #64dba9;
+  --color-photon: #db6464;
+  --color-graviton: #cccccc;
+
+  /* Exotic tab */
+  --color-tachyon: #61dbcb;
+  --color-darkmatter: #494949;
+  --color-darkmatter-warm--bg: #492c2c;
+  --color-darkmatter-cold--bg: #2c2c49;
 
   /*
 
-
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
   */
 
@@ -145,6 +170,80 @@ html {
   --color-pelle--base: crimson;
   --color-pelle--secondary: #00bcd4;
 }
+
+/*
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+*/
+
+/*game animations*/
+@keyframes a-darkmatter-gen-warm {
+  0% { background-color: var(--color-darkmatter); }
+  50% { background-color: var(--color-darkmatter-warm); }
+  100% { background-color: var(--color-darkmatter); }
+}
+@keyframes a-darkmatter-gen-cold {
+  0% { background-color: var(--color-darkmatter); }
+  50% { background-color: var(--color-darkmatter-cold); }
+  100% { background-color: var(--color-darkmatter); }
+}
+
+@keyframes a-fusion-anim-button {
+  0% { box-shadow: inset 0 0 0 0 #cdbeff; }
+  25% { box-shadow: inset 0 0 3rem 1rem #624eaa; }
+  100% { box-shadow: inset 0 0 6rem 4rem black; }
+}
+
+@keyframes a-decay-btn-glow {
+  0% { box-shadow: inset 0 0 4rem 2rem black; }
+  50% { box-shadow: inset 0 0 4rem 4rem black; }
+  100% { box-shadow: inset 0 0 4rem 2rem black; }
+}
+
+/*research button animations*/
+
+
+/*news ticker animations*/
+@keyframes a-text-wave {
+  0% { position:relative; top: -0.5rem; }
+  50% { position:relative; top: 0.5rem; }
+  100% { position:relative; top: -0.5rem; }
+}
+
+@keyframes a-text-wave2 {
+  0% { position:relative; top: 0.5rem; }
+  50% { position:relative; top: -0.5rem; }
+  100% { position:relative; top: 0.5rem; }
+}
+
+/*prestige screen animations*/
+@keyframes a-initial-game {
+  0% {background-color: #181818;}
+  85% {background-color: #cccccc; opacity: 0;}
+  100% {background-color: #cccccc; opacity: 0;}
+}
+
+@keyframes a-fusion {
+  0% { background-color: #000000; }
+  45% { background-color: #222222;
+        opacity: 1; }
+  50% { background-color: #999999;
+        opacity: 0; }
+  60% { background-color: #999999;
+        opacity: 0; }
+  100% { background-color: #000000;
+        opacity: 1; }
+}
+/*
+
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+
+*/
 
 :root .t-metro,
 :root .t-inverted-metro,
@@ -757,10 +856,12 @@ button:focus {
 /*
 
 ------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 
 */
 
-/* #region Fermion sidebar tab */
+/* #region sidebar tab */
 .o-tab-btn--fermions{
   color: var(--color-fermions);
   background-color: var(--color-prestige--accent);
@@ -770,158 +871,653 @@ button:focus {
 .o-tab-btn--fermions:hover {
   background: var(--color-fermions);
 }
-/* #endregion Fermion sidebar tab */
 
-/* #region Quark Upgrades */
-/*.l-reality-upgrade-btn {
+.o-tab-btn--bosons{
+  color: var(--color-bosons);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-bosons);
+}
+
+.o-tab-btn--bosons:hover {
+  background: var(--color-bosons);
+}
+
+.o-tab-btn--exotic{
+  color: var(--color-exotic);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-exotic);
+}
+
+.o-tab-btn--exotic:hover {
+  background: var(--color-exotic);
+}
+
+.o-tab-btn--mechanisms{
+  color: var(--color-mechanisms);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-mechanisms);
+}
+
+.o-tab-btn--mechanisms:hover {
+  background: var(--color-mechanisms);
+}
+/* #endregion sidebar tab */
+
+.l-quantum-upgrade-btn {
   display: flex;
   flex-direction: column;
-  width: 20.5rem;
+  width: 22rem;
   height: 10rem;
   position: relative;
   justify-content: center;
   align-items: center;
-  margin: 1.2rem;
+  margin: 0rem;
   padding: 0 0.5rem;
-}*/
+}
 
-.o-quark1generator-upgrade {
-  width: 20rem;
-  height: 9rem;
+/* #region Quark Upgrades */
+.c-quark-upgrade-btn {
+  text-align: center;
   font-family: Typewriter, serif;
   font-size: 1rem;
-  font-weight: bold;
-  border: 0.1rem solid var(--color-quark-up);
-  /*border-width: var(--var-border-width, 0.1rem);*/
+  color: var(--color-quark-up);
+  background-color: var(--color-background);
+  border: solid var(--color-quark-up);
+  border-width: var(--var-border-width, 0.1rem);
   border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.o-quark-upgrade {
+  font-weight: bold;
   transition-duration: 0.2s;
   cursor: pointer;
 
   padding: 1rem;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
 }
 
-.o-quark1generator-upgrade--available {
+.o-quark-upgrade--available {
   color: var(--color-quark-up);
   background-color: black;
 }
 
-.o-quark1generator-upgrade--available:hover {
+.o-quark-upgrade--available:hover {
   color: var(--color-text);
   background-color: var(--color-quark-up--bg);
 }
 
-.o-quark1generator-upgrade--unavailable {
+.o-quark-upgrade--unavailable {
   color: #181818;
   background-color: #5f5f5f;
   cursor: default;
 }
 
-.o-quark1generator-upgrade--unavailable:hover {
+.o-quark-upgrade--unavailable:hover {
   background-color: #737373;
 }
 
-.o-quark1generator-upgrade--bought {
+.o-quark-upgrade--bought {
   color: black;
   background-color: var(--color-quark-up);
   border-color: black;
   cursor: default;
 }
 
-/*.t-metro .o-quark-upgrade--available {
+/* #endregion Quark Upgrades */
+
+
+/* #region electron Upgrades */
+.c-electron-upgrade-btn {
+  text-align: center;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  color: var(--color-electron);
+  background-color: var(--color-background);
+  border: solid var(--color-electron);
+  border-width: var(--var-border-width, 0.1rem);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.o-electron-upgrade {
+  font-weight: bold;
+  transition-duration: 0.2s;
+  cursor: pointer;
+
+  padding: 1rem;
+}
+
+.o-electron-upgrade--available {
+  color: var(--color-electron);
+  background-color: black;
+}
+
+.o-electron-upgrade--available:hover {
+  color: var(--color-text);
+  background-color: var(--color-electron--bg);
+}
+
+.o-electron-upgrade--unavailable {
+  color: #181818;
+  background-color: #5f5f5f;
+  cursor: default;
+}
+
+.o-electron-upgrade--unavailable:hover {
+  background-color: #737373;
+}
+
+.o-electron-upgrade--bought {
+  color: black;
+  background-color: var(--color-electron);
+  border-color: black;
+  cursor: default;
+}
+
+.o-electron-upgrade--disabled {
+  color: #181818;
+  background-color: #622a2a;
+  cursor: not-allowed;
+}
+
+.o-electron-upgrade--disabled:hover {
+  background-color: #824a4a;
+}
+
+/* #endregion electron Upgrades */
+
+/* #region generator boost */
+
+.o-primary-btn--genboost {
+  width: 24rem;
+  height: 5.5rem;
+  position: relative;
+  font-size: 0.9rem;
+}
+
+/* #endregion generator boost */
+
+/* #region c-gluon__accent */
+
+.c-gluon__accent {
+  font-size: 3.5rem;
+  color: var(--color-gluon);
+}
+
+.t-metro .c-gluon__accent,
+.t-s8 .c-gluon__accent {
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 50%), -0.1rem 0.1rem 0.1rem black;
+}
+
+.t-dark .c-gluon__accent,
+.t-amoled .c-gluon__accent,
+.t-amoled-metro .c-gluon__accent,
+.t-s6 .c-gluon__accent,
+.t-s10 .c-gluon__accent,
+.t-s11 .c-gluon__accent {
+  color: white;
+  text-shadow: 0 0 0.7rem #ffffff;
+}
+
+.t-metro .c-gluon__accent,
+.t-dark-metro .c-gluon__accent,
+.t-s8 .c-gluon__accent {
+  color: var(--color-gluon);
+}
+
+/* #endregion c-gluon__accent */
+
+/* #region c-electriccharge-dim-description__accent */
+
+.c-electriccharge-dim-description__accent {
+  font-size: 3.5rem;
+  color: var(--color-electron);
+}
+
+.t-metro .c-electriccharge-dim-description__accent,
+.t-s8 .c-electriccharge-dim-description__accent {
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 50%), -0.1rem 0.1rem 0.1rem black;
+}
+
+.t-dark .c-electriccharge-dim-description__accent,
+.t-amoled .c-electriccharge-dim-description__accent,
+.t-amoled-metro .c-electriccharge-dim-description__accent,
+.t-s6 .c-electriccharge-dim-description__accent,
+.t-s10 .c-electriccharge-dim-description__accent,
+.t-s11 .c-electriccharge-dim-description__accent {
+  color: white;
+  text-shadow: 0 0 0.7rem #ffffff;
+}
+
+.t-metro .c-electriccharge-dim-description__accent,
+.t-dark-metro .c-electriccharge-dim-description__accent,
+.t-s8 .c-electriccharge-dim-description__accent {
+  color: var(--color-electron);
+}
+
+/* #endregion c-electriccharge-dim-description__accent */
+
+/* #region c-decay-tab */
+
+.c-decay-tab__z {
+  font-size: 3.5rem;
+  color: black;
+}
+
+.c-decay-tab__nuclear-power {
+  font-size: 3.5rem;
+  color: black;
+}
+
+.c-decay-tab__z,
+.c-decay-tab__nuclear-power {
+  color: var(--color-decay-nuclear-power);
+}
+
+.t-metro .c-decay-tab__z,
+.s-base--dark .c-decay-tab__z,
+.t-s8 .c-decay-tab__z {
+  color: var(--color-decay-z);
+}
+
+.t-dark .c-decay-tab__z,
+.t-s6 .c-decay-tab__z,
+.t-s10 .c-decay-tab__z {
+  text-shadow: 0 0 0.7rem var(--color-decay-z);
+}
+
+.t-metro .c-decay-tab__z,
+.t-metro .c-decay-tab__nuclear-power,
+.t-s8 .c-decay-tab__z,
+.t-s8 .c-decay-tab__nuclear-power {
+  text-shadow: 0 0 0.1rem rgba(0, 0, 0, 50%), -0.1rem 0.1rem 0.1rem black;
+}
+
+.t-metro .c-decay-tab__nuclear-power,
+.s-base--dark .c-decay-tab__nuclear-power,
+.t-s8 .c-decay-tab__nuclear-power {
+  color: var(--color-decay-nuclear-power);
+}
+
+.t-dark .c-decay-tab__nuclear-power,
+.t-s6 .c-decay-tab__nuclear-power,
+.t-s10 .c-decay-tab__nuclear-power {
+  text-shadow: 0 0 2rem var(--color-decay-nuclear-power_glow);
+}
+
+/* #endregion c-decay-tab */
+
+/* #region nuclear fusion button*/
+
+/*.c-gluon-tab__fusion-button {
+  font-family: Typewriter, serif;
+  font-size: 1.5rem;
+  color: var(--color-gluon);
+  background: #111117;
+  border: var(--var-border-width, 0.1rem) solid;
+  border-radius: var(--var-border-radius, 0.8rem);
+  margin-bottom: 1.2rem;
+  padding: 1.5rem;
+  transition-duration: 0.15s;
+  animation: a-fusion-anim-button 2s infinite linear;
+  cursor: pointer;
+}
+.s-base--dark .c-gluon-tab__fusion-button {
+  background: black;
+  animation: a-fusion-anim-button 2s infinite linear;
+}
+.c-gluon-tab__fusion-button:hover {
+  color: #cdbeff;
+  background: black;
+}
+.s-base--dark .c-gluon-tab__fusion-button:hover {
+  background: black;
+}
+
+.c-gluon-tab__fusion-button--disabled {
+  color: #cec2ee;
+  background: #39383b;
+  animation: none;
+  cursor: default;
+}
+.s-base--dark .c-gluon-tab__fusion-button--disabled {
+  color: #cec2ee;
+  background: #39383b;
+  animation: none;
+  cursor: default;
+}
+.c-gluon-tab__fusion-button--disabled:hover {
+  color: #cec2ee;
+  background: #39383b;
+}
+.s-base--dark .c-gluon-tab__fusion-button--disabled:hover {
+  color: #cec2ee;
+  background: #39383b;
+}
+
+.c-gluon-tab__fusion-button-available:hover {
+  color: #306d80;
+  background: black;
+}
+.s-base--dark .c-gluon-tab__fusion-button-available:hover {
+  background: white;
+}
+
+.l-gluon-tab__fusion-container {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}*/
+
+.o-fusion-button {
+  font-weight: bold;
+  color: var(--color-gluon);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-gluon);
+  transition-duration: 0.15s;
+  animation: a-fusion-anim-button 2s infinite linear;
+}
+
+.o-decay-button {
+  font-weight: bold;
+  color: var(--color-decay-z);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-decay-nuclear-power);
+  transition-duration: 0.15s;
+  animation: a-decay-btn-glow 3s infinite linear;
+}
+
+.o-fusion-button:hover {
+  color: #cdbeff;
+  background: black;
+  /*color: black;
+  background-color: var(--color-gluon);*/
+}
+
+.o-decay-button:hover {
+  color: #f0ddc4;
+  border-color: #ee7d5b;
+  background: black;
+}
+
+.t-metro .o-fusion-button {
   box-shadow: 0.1rem 0.1rem 0.1rem 0 #9e9e9e;
 }
 
-.s-base--metro .o-quark-upgrade--bought {
-  color: black;
-  background-color: #673ab7;
-  border-color: black;
+.o-fusion-button--unavailable,
+.o-decay-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+  animation: none;
 }
 
-.s-base--metro .o-quark-upgrade--unavailable {
-  background-color: #9e9e9e;
-  border-color: black;
+/* #endregion nuclear fusion button*/
+
+/* #region decay tab button */
+
+.o-decay-tab-btn {
+  width: 19rem;
+  height: 9rem;
+  font-family: Typewriter, serif;
+  font-size: 1.12rem;
+  font-weight: bold;
+  border: var(--var-border-width, 0.2rem) solid var(--color-decay-nuclear-power);
+  border-radius: var(--var-border-radius, 0.4rem);
+  padding: 1rem;
+  transition-duration: 0.2s;
 }
 
-.s-base--metro .o-quark-upgrade--unavailable:hover {
-  background-color: #bdbdbd;
+.o-decay-tab-btn--locked {
+  color: #975d5b;
+  background-color: #2b2222;
+  border-color: #961a0a;
 }
 
-.t-dark .o-quark-upgrade--available,
-.t-s6 .o-quark-upgrade--available,
-.t-s10 .o-quark-upgrade--available {
+.o-decay-tab-btn--unlocked {
+  color: var(--color-decay-nuclear-power);
+  background-color: var(--color-decay-nuclear-power_glow);
+  border-color: var(--color-decay-nuclear-power);
+  animation: a-decay-btn-glow 3s infinite ease-in;
+  cursor: pointer;
+}
+
+.o-decay-tab-btn--locked:hover {
+  color: #2b2222;
+  background-color: #975d5b;
+}
+
+.o-decay-tab-btn--unlocked:hover {
+  color: #f58563;
+  border-color: #f58563;
+}
+
+/* #endregion decay tab button */
+
+/* #region gluon Upgrades */
+.c-gluon-upgrade-btn {
+  text-align: center;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  color: var(--color-gluon);
+  background-color: var(--color-background);
+  border: solid var(--color-gluon);
+  border-width: var(--var-border-width, 0.1rem);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.o-gluon-upgrade, .o-buy-gluon-upgrade-btn {
+  font-weight: bold;
+  transition-duration: 0.2s;
+  cursor: pointer;
+
+  padding: 1rem;
+}
+
+.o-buy-gluon-upgrade-btn {
+  width: auto;
+}
+
+.o-gluon-upgrade--available, .o-buy-gluon-upgrade-btn--available {
+  color: var(--color-gluon);
   background-color: black;
 }
 
-.t-dark .o-quark-upgrade--available:hover,
-.t-s6 .o-quark-upgrade--available:hover,
-.t-s10 .o-quark-upgrade--available:hover {
+.o-gluon-upgrade--available:hover, .o-buy-gluon-upgrade-btn:hover {
   color: var(--color-text);
-  background-color: var(--color-eternity);
+  background-color: var(--color-gluon--bg);
 }
 
-.t-dark .o-quark-upgrade--unavailable {
+.o-gluon-upgrade--unavailable, .o-buy-gluon-upgrade-btn--unavailable {
+  color: #181818;
+  background-color: #5f5f5f;
+  cursor: default;
+}
+
+.o-gluon-upgrade--unavailable:hover, .o-buy-gluon-upgrade-btn--unavailable:hover {
+  background-color: #737373;
+}
+
+.o-gluon-upgrade--bought, .o-buy-gluon-upgrade-btn--bought {
   color: black;
-  background-color: #263238;
-  border-color: #691fa5;
-}
-
-.t-dark .o-quark-upgrade--unavailable:hover {
-  background-color: #37474f;
-}
-
-.t-s6 .o-quark-upgrade--unavailable,
-.t-s10 .o-quark-upgrade--unavailable {
-  color: grey;
-  background-color: black;
-  border-color: #691fa5;
-}
-
-.t-s6 .o-quark-upgrade--unavailable:hover,
-.t-s10 .o-quark-upgrade--unavailable:hover {
-  background-color: #222222;
-}
-
-.t-dark .o-quark-upgrade--bought,
-.t-s6 .o-quark-upgrade--bought,
-.t-s10 .o-quark-upgrade--bought {
-  color: var(--color-text-inverted);
-  background-color: var(--color-eternity);
-  border-color: #691fa5;
-}
-
-.t-s1 .o-quark-upgrade--available {
-  background-color: black;
-}
-
-.t-s1 .o-quark-upgrade--available:hover {
-  color: black;
-  background-color: #639565;
+  background-color: var(--color-gluon);
   border-color: black;
+  cursor: default;
 }
 
-.t-s1 .o-quark-upgrade--bought {
+/* #endregion gluon Upgrades */
+
+/* #region electron Upgrades */
+.c-fusion-upgrade-btn {
+  text-align: center;
+  font-family: Typewriter, serif;
+  font-size: 1rem;
+  color: var(--color-matter);
+  background-color: var(--color-background);
+  border: solid var(--color-matter);
+  border-width: var(--var-border-width, 0.1rem);
+  border-radius: var(--var-border-radius, 0.4rem);
+  transition-duration: 0.15s;
+  cursor: pointer;
+}
+
+.o-fusion-upgrade {
+  font-weight: bold;
+  transition-duration: 0.2s;
+  cursor: pointer;
+
+  padding: 1rem;
+}
+
+.o-fusion-upgrade--available {
+  color: var(--color-matter);
+  background-color: black;
+}
+
+.o-fusion-upgrade--available:hover {
+  color: var(--color-text);
+  background-color: var(--color-matter);
+}
+
+.o-fusion-upgrade--unavailable {
+  color: #181818;
+  background-color: #5f5f5f;
+  cursor: default;
+}
+
+.o-fusion-upgrade--unavailable:hover {
+  background-color: #737373;
+}
+
+.o-fusion-upgrade--bought {
   color: black;
-  background-color: #639565;
+  background-color: var(--color-matter);
   border-color: black;
+  cursor: default;
 }
 
-.t-s1 .o-quark-upgrade--unavailable {
+/* #endregion fusion Upgrades */
+
+/* #region String shop */
+
+.strings-buttons {
+  display: flex;
+  width: 85rem;
+  position: relative;
+  bottom: 0;
+  z-index: 2;
+  margin: auto;
+  justify-content: center;
+  font-family: Typewriter, serif;
+  color: var(--color-text);
+  pointer-events: all;
+}
+
+.l-string-buy-button {
+  width: 16rem;
+  z-index: 1;
+  margin: 0.3rem;
+}
+
+.c-string-buy-button {
+  font-family: Typewriter, serif;
+  font-size: 1.35rem;
+  font-weight: bold;
+  border: 0.1rem solid var(--color-matter);
+  border-radius: var(--var-border-radius, 4px);
+  transition-duration: 0.2s;
+}
+
+.c-string-buy-button--unlocked {
+  color: var(--color-matter);
+  background: #232028;
+  cursor: pointer;
+}
+
+.c-string-buy-button--unlocked:hover {
+  color: #232028;
+  background: var(--color-matter);
+}
+
+.c-string-buy-button--locked {
   color: black;
-  background-color: #4a4a4a;
-  border-color: #639565;
+  background: #4a4a4a;
 }
 
-.t-s1 .o-quark-upgrade--unavailable:hover {
-  background: #636363;
-}*/
+.c-string-buy-button--locked:hover {
+  background: #652f2f;
+}
 
-/* #endregion Quark Upgrades */
+.webstrings {
+  flex: auto;
+  text-align: center;
+  font-size: 15px;
+}
+
+.stringbuttons-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  transition: all 0.25s ease-out;
+}
+
+.stringbuttons-top-row {
+  align-items: center;
+}
+
+.o-string-top-row-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+  min-height: 3rem;
+  align-self: stretch;
+  font-size: 1.2rem;
+  margin: 0.3rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.l-string-buy-max-vbox {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.stringshop-background {
+  z-index: 1;
+  background: var(--color-base);
+  border: var(--var-border-width, 0.1rem) solid;
+  border-color: var(--color-matter);
+  border-bottom: none;
+  border-top-left-radius: var(--var-border-radius, 7px);
+  border-top-right-radius: var(--var-border-radius, 7px);
+}
+
+.t-s6 .stringshop-background,
+.t-s10 .stringshop-background {
+  border: 0.1rem solid #3aacd6;
+}
+
+.stringshop-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 70rem;
+  max-width: 120rem;
+  padding: 0 0.5rem;
+  transition: all 0.25s ease-out;
+}
+
+.strings-force-right-align {
+  justify-content: flex-end;
+}
+
+/* #endregion Strings shop */
 
 /*
 
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 
 */
@@ -2522,7 +3118,8 @@ br {
 
 /* #region c-game-header__antimatter */
 
-.c-game-header__antimatter {
+.c-game-header__antimatter,
+.c-game-header__w-boson {
   font-size: 2.5rem;
   color: black;
 }
@@ -3235,6 +3832,22 @@ br {
   user-select: none;
 }
 
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
+.o-achievement--quantum {
+  background-image: url("../images/quantum achievements.png");
+}
+
+/*
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+*/
+
 .o-achievement--normal {
   background-image: url("../images/normal achievements.png");
 }
@@ -3639,6 +4252,24 @@ br {
   padding: 0.5rem 0.4rem;
   transition: all 0.2s, visibility 0s;
 }
+
+/*
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+*/
+.c-challenge-box--fusion {
+  height: 15rem;
+  color: var(--color-text);
+  background-color: var(--color-prestige--accent);
+  border-color: var(--color-gluon);
+  border-radius: var(--var-border-radius, 1rem);
+}
+/*
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+*/
 
 .c-challenge-box--normal {
   font-size: 1.05rem;

@@ -168,6 +168,16 @@ dev.setNextNewsMessage = function(id) {
   nextNewsMessageId = id;
 };
 
+/*
+*/
+
+dev.fusion = function() {
+  fusionAnimation();
+};
+
+/*
+*/
+
 dev.implode = function() {
   bigCrunchAnimation();
 };
@@ -194,6 +204,22 @@ dev.respecPerks = function() {
   GameCache.achievementPeriod.invalidate();
   GameCache.buyablePerks.invalidate();
 };
+
+dev.resetQuantumWeb = function() {
+  player.webNodes = new Set();
+  player.web.sectionsUnlockedState = 0;
+  Currency.strings.reset();
+  Currency.matter_quantum.value = DC.D5E1;
+  WebNetwork.updatePerkColor();
+  WebNetwork.updatePerkTitleText();
+};
+
+dev.resetPreQuantumWeb = function() {
+  this.resetQuantumWeb();
+  Currency.gluonMult.value = 1;
+  Currency.gluons.reset();
+  player.nuclearFusion.gluonPurchases = 0;
+}
 
 export function isDevEnvironment() {
   const href = window.location.href;

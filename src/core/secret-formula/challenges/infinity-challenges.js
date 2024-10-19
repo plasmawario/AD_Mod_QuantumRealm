@@ -12,7 +12,7 @@ export const infinityChallenges = [
       effect: () => Math.pow(1.3, InfinityChallenges.completed.length),
       formatEffect: value => formatX(value, 1, 1)
     },
-    unlockAM: DC.E2000,
+    unlockAM: DC.D0,//DC.E2000,
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const infinityChallenges = [
         ${Sacrifice.getSacrificeDescription({ "InfinityChallenge2isCompleted": false })} ➜
         ${Sacrifice.getSacrificeDescription({ "InfinityChallenge2isCompleted": true })}`,
     },
-    unlockAM: DC.E11000,
+    unlockAM: DC.D0,//DC.E11000,
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ export const infinityChallenges = [
         : Decimal.pow(1.05 + (player.galaxies * 0.005), player.totalTickBought)),
       formatEffect: value => formatX(value, 2, 2),
     },
-    unlockAM: DC.E12000,
+    unlockAM: DC.D0,//DC.E12000,
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ export const infinityChallenges = [
       description: () => `All Antimatter Dimension multipliers become multiplier${formatPow(1.05, 2, 2)}`,
       effect: 1.05
     },
-    unlockAM: DC.E14000,
+    unlockAM: DC.D0,//DC.E14000,
   },
   {
     id: 5,
@@ -72,7 +72,7 @@ export const infinityChallenges = [
         and Dimension Boosts by ${formatInt(1)}`,
       effect: 1.1
     },
-    unlockAM: DC.E18000,
+    unlockAM: DC.D0,//DC.E18000,
   },
   {
     id: 6,
@@ -88,7 +88,7 @@ export const infinityChallenges = [
       effect: () => Tickspeed.perSecond.pow(0.0005),
       formatEffect: value => formatX(value, 2, 2)
     },
-    unlockAM: DC.E22500,
+    unlockAM: DC.D0,//DC.E22500,
   },
   {
     id: 7,
@@ -112,7 +112,7 @@ export const infinityChallenges = [
       description: () => `Dimension Boost multiplier is increased to a minimum of ${formatX(4)}`,
       effect: 4
     },
-    unlockAM: DC.E23000,
+    unlockAM: DC.D0,//DC.E23000,
   },
   {
     id: 8,
@@ -129,6 +129,6 @@ export const infinityChallenges = [
       effect: () => AntimatterDimension(1).multiplier.times(AntimatterDimension(8).multiplier).pow(0.02),
       formatEffect: value => formatX(value, 2, 2)
     },
-    unlockAM: DC.E28000,
+    unlockAM: DC.D0,//DC.E28000,
   },
 ];

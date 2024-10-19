@@ -5,38 +5,89 @@ import { AUTOMATOR_MODE, AUTOMATOR_TYPE } from "./automator/automator-backend";
 import { DC } from "./constants";
 import { deepmergeAll } from "@/utility/deepmerge";
 import { GlyphTypes } from "./glyph-effects";
+import { FusionChallenge } from "./fusion-challenges";
 
 // This is actually reassigned when importing saves
 // eslint-disable-next-line prefer-const
 window.player = {
+  //--------------------------------------------------------------------------
+  tutorialState_quantum: 0,
+  pastInitialScreen: false,
   quarks: {
-    //rebuyable upgrade vals
+    quark1: DC.E1,
+  },
+  electrons: {
     rebuyables: {
-      1: 0,
-      2: 0,
     },
     upgradeBits: 0,
 
-    //currency vals
-    quark1: DC.E1,
-    quark2: DC.D0,
-    quark3: DC.D0,
+    electrons: DC.D0,
   },
-  matter_quantum: DC.D0,
+  nuclearFusion: {
+    rebuyables: {
+      1: 0,
+    },
+    upgradeBits: 0,
+    upgradeBbits: 0,
+    upgrade2bits: 0,
+
+    gluons: DC.D1,
+    gluonMult: 1,
+    gluonPurchases: 0,
+
+    fc2_production: 1,
+
+    electricCharge: DC.D0,
+  },
+  webNodes: new Set(),
+  webBranchesUnlocked: [],
+  upBoosts: 0,
+  downBoosts: 0,
+  electronBoosts: 0,
+  gluonProtoGalaxies: 0,
   totalTickQuantumBought: 0,
   totalTickQuantumGained: 0,
-  
-  quarkUpgrades: new Set(),
+  timesNuclearFused: DC.D0,
+  web: {
+    strings: DC.D0,
+    totalStrings: DC.D0,
+    matterBought: 0,
+    sectionsUnlockedState: 0,
+  },
+  matter_quantum: DC.D0,
+  partMatter: 0,
+  partFusions: 0,
+  decay: {
+    w: DC.D0,
+    z: DC.D0,
+    nuclearPower: DC.D0,
+    isActive: false,
+  },
 
-  
+  quantumAchievementBits: Array.repeat(0, 1),
+  //--------------------------------------------------------------------------
 
   antimatter: DC.E1,
   dimensions: {
-    quarks1: Array.range(0, 2).map(tier => ({
+    //--------------------------------------------------------------------------
+    upQuarks: Array.range(0, 3).map(tier => ({
       bought: 0,
       amount: DC.D0,
-      cost: [DC.E1, DC.E2][tier],
+      costBumps: 0,
+      cost: [DC.E1, DC.E3, DC.E7][tier],
     })),
+    downQuarks: Array.range(0, 3).map(tier => ({
+      bought: 0,
+      amount: DC.D0,
+      costBumps: 0,
+      cost: [DC.E2, DC.E5, DC.E12][tier],
+    })),
+    electrons: Array.range(0, 3).map(tier => ({
+      bought: 0,
+      amount: DC.D0,
+      cost: [DC.E30, DC.E80, DC.E150][tier],
+    })),
+    //--------------------------------------------------------------------------
     antimatter: Array.range(0, 8).map(() => ({
       bought: 0,
       costBumps: 0,
@@ -62,6 +113,18 @@ window.player = {
   infinityUpgrades: new Set(),
   infinityRebuyables: [0, 0, 0],
   challenge: {
+    /*
+    --------------------------------------------------------------
+    */
+    fusion:{
+      current: 0,
+      bestTimes: Array.repeat(Number.MAX_VALUE, 10),
+      completedBits: 0,
+      totalCompletions: 0,
+    },
+    /*
+    --------------------------------------------------------------
+    */
     normal: {
       current: 0,
       bestTimes: Array.repeat(Number.MAX_VALUE, 11),
@@ -82,6 +145,97 @@ window.player = {
     upgradeBits: 0
   },
   auto: {
+    //--------------------------------------------------------------------------
+    upQuarkGens: {
+      all: Array.range(0, 3).map(tier => ({
+        isUnlocked: false,
+        cost: 1,
+        interval: [1000, 5000, 10000][tier],
+        bulk: 1,
+        mode: AUTOBUYER_MODE.BUY_MAX,
+        isActive: true,
+        lastTick: 0,
+        isBought: false
+      })),
+      isActive: true,
+    },
+    downQuarkGens: {
+      all: Array.range(0, 3).map(tier => ({
+        isUnlocked: false,
+        cost: 1,
+        interval: [1000, 5000, 10000][tier],
+        bulk: 1,
+        mode: AUTOBUYER_MODE.BUY_MAX,
+        isActive: true,
+        lastTick: 0,
+        isBought: false
+      })),
+      isActive: true,
+    },
+    electronGens: {
+      all: Array.range(0, 3).map(tier => ({
+        isUnlocked: false,
+        cost: 1000000000000000000000,
+        interval: [1000, 5000, 10000][tier],
+        bulk: 1,
+        mode: AUTOBUYER_MODE.BUY_MAX,
+        isActive: true,
+        lastTick: 0,
+        isBought: false
+      })),
+      isActive: true,
+    },
+    upBoost: {
+      cost: 1,
+      interval: 5000,
+      limitUpBoosts: false,
+      maxUpBoosts: 1,
+      limitUntilGalaxies: false,
+      buyMaxInterval: 0,
+      isActive: true,
+      lastTick: 0
+    },
+    downBoost: {
+      cost: 1,
+      interval: 5000,
+      limitDownBoosts: false,
+      maxDownBoosts: 1,
+      limitUntilGalaxies: false,
+      buyMaxInterval: 0,
+      isActive: true,
+      lastTick: 0
+    },
+    electronBoost: {
+      cost: 1,
+      interval: 10000,
+      limitDimBoosts: false,
+      maxDimBoosts: 1,
+      limitUntilGalaxies: false,
+      buyMaxInterval: 0,
+      isActive: true,
+      lastTick: 0
+    },
+    tickspeed_quantum: {
+      isUnlocked: false,
+      cost: 1,
+      interval: 500,
+      mode: AUTOBUYER_MODE.BUY_SINGLE,
+      isActive: true,
+      lastTick: 0,
+      isBought: false
+    },
+    fusion: {
+      cost: 1,
+      interval: 150000,
+      mode: 0,
+      amount: DC.D1,
+      increaseWithMult: true,
+      time: 1,
+      xHighest: DC.D1,
+      isActive: true,
+      lastTick: 0
+    },
+    //--------------------------------------------------------------------------
     autobuyersOn: true,
     disableContinuum: false,
     reality: {
@@ -294,6 +448,31 @@ window.player = {
     }
   },
   records: {
+    //--------------------------------------------------------------------------
+    maxQuarks: DC.E1,
+    maxElectrons: DC.D0,
+    maxMatter: DC.D0,
+    thisFusion: {
+      time: 0,
+      realTime: 0,
+      lastBuyTime: 0,
+      maxQuarks: DC.D0,
+      maxElectrons: DC.D0,
+      bestMattermin: DC.D0,
+      bestMatterminVal: DC.D0,
+    },
+    bestFusion: {
+      time: Number.MAX_VALUE,
+      realTime: Number.MAX_VALUE,
+      bestMattermin: DC.D0,
+    },
+    recentFusions: Array.range(0, 10).map(() =>
+      [Number.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
+    totalQuarks: DC.E1,
+    totalElectrons: DC.D0,
+    totalMatter_Quantum: DC.D0,
+    totalGluons: DC.D0,
+    //--------------------------------------------------------------------------
     gameCreatedTime: Date.now(),
     totalTimePlayed: 0,
     timePlayedAtBHUnlock: Number.MAX_VALUE,
@@ -856,6 +1035,8 @@ window.player = {
       showGlyphInfoByDefault: false,
     },
     animations: {
+      fusion: true,
+
       bigCrunch: true,
       eternity: true,
       dilation: true,
@@ -865,6 +1046,10 @@ window.player = {
       blobSnowflakes: 16
     },
     confirmations: {
+      fusion: true,
+      upGenBoost: true,
+      downGenBoost: true,
+
       armageddon: true,
       sacrifice: true,
       challenges: true,
@@ -935,6 +1120,7 @@ window.player = {
       id: false,
     }
   },
+  dev_lock_chpt1: true,
 };
 
 export const Player = {
@@ -944,8 +1130,29 @@ export const Player = {
 ----------------------------------------------------------------------------------------------------
   */
 
-  get tickSpeedQuantumMultDecrease() {
-    return GameCache.tickSpeedMultDecrease.value;
+  get postFusionCostScaleMulti() {
+    return GameCache.postFusionCostScaleMulti.value;
+  },
+
+  get fusionGoal() {
+    return Decimal.NUMBER_MAX_VALUE;
+  },
+
+  get canFuse() {
+    const goal = Decimal.NUMBER_MAX_VALUE;
+    return player.records.thisFusion.maxQuarks.gte(goal);
+  },
+
+  get isInFusionChallenge() {
+    return FusionChallenge.isRunning;
+  },
+
+  get fusionChallenge() {
+    return FusionChallenge.current;
+  },
+
+  get bestMatterFusion() {
+    return GameCache.bestRunMatterPM.value;
   },
 
   /*
@@ -965,11 +1172,11 @@ export const Player = {
   },
 
   get isInAnyChallenge() {
-    return this.isInAntimatterChallenge || EternityChallenge.isRunning;
+    return this.isInAntimatterChallenge || EternityChallenge.isRunning || FusionChallenge.isRunning;
   },
 
   get anyChallenge() {
-    return this.antimatterChallenge || EternityChallenge.current;
+    return this.antimatterChallenge || EternityChallenge.current || FusionChallenge.current;
   },
 
   get canCrunch() {

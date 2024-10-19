@@ -1,30 +1,49 @@
 <script>
-import QuarkRow from "@/components/tabs/fermions/ModernQuarksRow";
+import UpQuarkRow from "@/components/tabs/fermions/ModernUpQuarksRow";
+import DownQuarkRow from "@/components/tabs/fermions/ModernDownQuarksRow";
 import QuarkUpgrades from "@/components/tabs/fermions/ModernQuarkMultiplierRow";
+import UpGenBoostRow from "@/components/tabs/fermions/ModernUpGenBoostRow";
+import DownGenBoostRow from "@/components/tabs/fermions/ModernDownGenBoostRow";
+import PrimaryButton from "@/components/PrimaryButton";
 import TickspeedQuantumRow from "@/components/tabs/fermions/TickspeedQuantumRow";
-import { maxAllQuarkGenerator } from "../../../core/globals";
 //import PrimaryButton from "@/components/PrimaryButton";
 
 export default {
   name: "ModernQuarksTab",
   components: {
-    QuarkRow,
+    PrimaryButton,
+    UpQuarkRow,
+    DownQuarkRow,
     QuarkUpgrades,
+    UpGenBoostRow,
+    DownGenBoostRow,
     TickspeedQuantumRow,
   },
   data() {
     return {
-      buyQuark1GenMultiplier: new Decimal(),
-      gen1MultiplierText: "",
+      hasUpBoosts: false,
+      hasDownBoosts: false,
+      isDownGenUnlocked: false,
+      buyUpQuarkGenMultiplier: new Decimal(),
+      buyDownQuarkGenMultiplier: new Decimal(),
+      upMultiplierText: "",
+      downMultiplierText: "",
     };
   },
   methods: {
     update() {
-      this.buyQuark1GenMultiplier.copyFrom(QuarkGenerators.generatorPurchaseMultiplier);
-      this.gen1MultiplierText = `1st gen quark generator purchase multiplier: ${formatX(this.buyQuark1GenMultiplier, 2, 2)}`
+      this.hasUpBoosts = player.upBoosts > 0;
+      this.hasDownBoosts = player.downBoosts > 0;
+      this.isDownGenUnlocked = DownQuarkGenerator(1).requirementReached || DownQuarkGenerator(1).isUnlocked;
+      this.buyUpQuarkGenMultiplier.copyFrom(UpQuarkGenerators.generatorPurchaseMultiplier);
+      this.buyDownQuarkGenMultiplier.copyFrom(DownQuarkGenerators.generatorPurchaseMultiplier);
+      this.upMultiplierText = `up quark generator purchase multiplier: ${formatX(this.buyUpQuarkGenMultiplier, 2, 2)}`;
+      this.downMultiplierText = `down quark generator purchase multiplier: ${formatX(this.buyDownQuarkGenMultiplier, 2, 2)}`;
     },
     maxAll() {
-      maxAllQuarkGenerator();
+      maxAllDownQuarkGenerator();
+      maxAllUpQuarkGenerator();
+      buyMaxTickSpeedQuantum();
     },
   }
 };
@@ -37,25 +56,43 @@ export default {
         class="o-primary-btn l-button-container"
         @click="maxAll"
       >
-        Max All (M)
+        Max All
       </button>
     </div>
     <div>
-      {{ gen1MultiplierText }}
+      {{ upMultiplierText }}
+      <br/>
+      {{ downMultiplierText }}
       <TickspeedQuantumRow />
       <br><br>
     </div>
     <div>
-      1st generation quarks
+      Up-type generators
     </div>
     <div class="l-dimensions-container">
-      <QuarkRow
-        v-for="tier in 2"
+      <UpQuarkRow
+        v-for="tier in 3"
         :key="tier"
         :tier="tier"
       />
     </div>
-    <QuarkUpgrades/>
+    <br/>
+    <br/>
+    <div
+      v-if="isDownGenUnlocked">
+      Down-type generators
+    </div>
+    <div class="l-dimensions-container">
+      <DownQuarkRow
+        v-for="tier in 3"
+        :key="tier"
+        :tier="tier"
+      />
+    </div>
+    <div class="resets-container">
+      <UpGenBoostRow />
+      <DownGenBoostRow />
+    </div>
   </div>
 </template>
 

@@ -61,9 +61,26 @@ export * from "./tickspeed";
 /*
 
 */
-export * from "./dimensions/quark-dimension";
+export * from "./achievements/quantum-achievement";
+
+export * from "./dimensions/up-quark-dimension";
+export * from "./dimensions/down-quark-dimension";
+export * from "./dimensions/electron-dimension";
+
 export * from "./tickspeed_quantum";
+export * from "./genboostUp";
+export * from "./genboostDown";
+export * from "./tutorial_quantum";
+
 export * from "./fermions";
+export * from "./fusion";
+
+export * from "./nuclear-fusion";
+export * from "./fusion-challenges";
+
+export * from "./webNodes";
+export * from "./strings";
+export * from "@/components/tabs/quantum-web/QuantumWebTab";
 /*
 
 */
