@@ -87,7 +87,7 @@ export const quantumAchievements = [
     id: 24,
     name: "What's the Matter?",
     description: "Have at least 50 unspent Matter",
-    checkRequirement: () => Currency.matterQuantum.value.gte(50),
+    checkRequirement: () => Currency.matter_quantum.value.gte(50),
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
   },
   {
