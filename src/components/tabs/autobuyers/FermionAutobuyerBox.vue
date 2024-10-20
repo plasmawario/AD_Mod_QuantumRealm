@@ -116,7 +116,7 @@ export default {
       this.globalToggle = player.auto.autobuyersOn;
       this.canBeBought = autobuyer.canBeBought;
       this.isUnlockable = autobuyer.canUnlockSlowVersion;
-      this.cost = autobuyer.cost;
+      this.cost = autobuyer.quarkCost;
       this.isBought = autobuyer.isBought;
 
       this.currMode = autobuyer.mode;

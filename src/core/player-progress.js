@@ -10,7 +10,7 @@ export class PlayerProgress {
   */
 
   get isElectronUnlocked() {
-    return ElectronGenerator(1).isUnlocked;
+    return this._player.records.thisFusion.maxElectrons.gt(0);
   }
  
   get isMatterUnlocked() {

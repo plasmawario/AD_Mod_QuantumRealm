@@ -35,7 +35,7 @@ function handleChallengeCompletion() {
   QuantumAchievement(43).tryUnlock();
 
   //update quantum web titles
-  WebNetwork.updatePerkTitleText();
+  //WebNetwork.updatePerkTitleText();
 }
 
 /**

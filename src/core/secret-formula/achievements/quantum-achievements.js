@@ -113,7 +113,7 @@ export const quantumAchievements = [
   {
     id: 27,
     name: "Copy-pasted objectives",
-    description: "Purchase all initial 17 Fusion upgrades",
+    description: "Purchase all initial 13 Fusion upgrades",
     checkRequirement: () => player.nuclearFusion.upgradeBits >= 8190 &&
                             player.nuclearFusion.upgradeBbits >= 1,
     checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,

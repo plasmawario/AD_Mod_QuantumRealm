@@ -92,7 +92,7 @@ export default {
     :autobuyer="autobuyer"
     :show-interval="true"
     :is-modal="isModal"
-    name="Automatic Big Crunch"
+    name="Automatic Nuclear Fusion"
   >
     <template
       v-if="!isIntervalAt100 && true"
